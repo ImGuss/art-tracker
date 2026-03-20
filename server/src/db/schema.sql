@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS artists (
   death_year INT,
   birth_place TEXT,
   description TEXT,
-  met_id INT UNIQUE,
+  met_reference_object_id INT UNIQUE,
   artic_id INT UNIQUE
 );
 
