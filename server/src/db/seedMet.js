@@ -17,40 +17,55 @@ export async function seedMet() {
     const data = await res.json()
     const ids = data.objectIDs
 
-    console.log(data)
-
-    console.log(`Object IDs ${ids}`)
-
-
     const batchSize = 10
 
     // fetch each object's data
     for (let i = 0; i < ids.length; i += batchSize) {
-      // delay between batches
-      await new Promise(res => setTimeout(res, 1000))
+      // cooldown to avoid bot detector
+      if (i % 20 === 0 && i > 0) {
+        console.log('⏸️ Pausing to avoid API limits')
+        const batchDelay = 1000 + Math.random() * 1500
+        await new Promise(res => setTimeout(res, batchDelay))
+      }
 
       const batch = ids.slice(i, i + batchSize)
 
-      const objects = await Promise.all(batch.map(async objectID => {  
+      for (const objectID of batch) {
+      // delay between fetches
+      const delay = 200 + Math.random() * 300
+      await new Promise(res => setTimeout(res, delay))
+
         console.log(`ObjectID: ${objectID}`)
         const response = await fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`)
 
-        if (!response.ok) {
-          console.error(`❌ Error fetching object ${objectID}`, await response.text())
-          return null
-        }
-        return await response.json()
-      }))
+        const text = await response.text()
 
-      allArtworks.push(...objects)
+        if (!response.ok || text.includes('Incapsula')) {
+          if (text.includes('Incapsula')) {
+            // pause if API limit reached
+            console.warn('⚠️ Hit the API limit. Pausing for 10 seconds')
+            await new Promise(res => setTimeout(res, 10000))
+            continue
+          } else {
+            console.error(`❌ Error fetching object ${objectID}`, text)
+            continue
+          }
+        }
+        try {
+          const parsed = JSON.parse(text)
+          allArtworks.push(parsed)
+        } catch (err) {
+          console.error(`Failed to parse JSON for ${objectID}`, err)
+        }
+      }
     }
 
 
     for (const artwork of allArtworks) {
 
+      if (!artwork.artistDisplayName || !artwork.artistBeginDate) continue
       const { artistDisplayName, artistBeginDate, artistEndDate, objectID } = artwork
 
-      if (!artistDisplayName) continue
 
       const key = `${artistDisplayName}|${artistBeginDate || ''}|${artistEndDate || ''}`
       // deduplicate artists
@@ -68,37 +83,47 @@ export async function seedMet() {
     console.error('❌ Error in fetch pipeline', err)
   }
 
-  // try {
-  //   const values = []
-  //   const placeholders = []
+  try {
+    const values = []
+    const placeholders = []
+    let i = 0
 
-  //   artistMap.forEach((artwork, i) => {
-  //     const ind = i * 4
+    for (const [key, artwork] of artistMap) {
+      const ind = i * 4
 
-  //     placeholders.push(
-  //       `($${ind + 1}, $${ind + 2}, $${ind + 3}, $${ind + 4})`
-  //     )
+      placeholders.push(
+        `($${ind + 1}, $${ind + 2}, $${ind + 3}, $${ind + 4})`
+      )
   
-  //     values.push(
-  //       artwork.name,
-  //       artwork.birth_year,
-  //       artwork.death_year,
-  //       artwork.met_reference_object_id
-  //     )
-  //   })
+      values.push(
+        artwork.name,
+        artwork.birth_year,
+        artwork.death_year,
+        artwork.met_reference_object_id
+      )
 
-  //   await pool.query(
-  //     `
-  //     INSERT INTO artists (name, birth_year, death_year, met_reference_object_id)
-  //     VALUES ${placeholders.join(',')}
-  //     ON CONFLICT (name) DO NOTHING
-  //     `, values
-  //   )
+      i++
+    }
 
-  //   console.log(`✅ Seeded ${artistMap.length} artists`)
-  // } catch (err) {
-  //   console.error('❌ Error adding to database', err)
-  // }
+    if (values.length === 0) {
+      console.log('⚠️ No artists to insert')
+      return
+    }
+
+    await pool.query(
+      `
+      INSERT INTO artists (name, birth_year, death_year, met_reference_object_id)
+      VALUES ${placeholders.join(",")}
+      ON CONFLICT (name) DO NOTHING
+      `, values
+    )
+
+    console.log(`✅ Seeded ${artistMap.size} artists`)
+  } catch (err) {
+    console.error('❌ Error adding to database', err)
+  } finally {
+    await pool.end()
+  }
 }
 
 seedMet()
