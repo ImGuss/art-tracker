@@ -4,6 +4,8 @@ import pool from './db.js'
 export async function seedMet() {
   const allArtworks = []
   const artistMap = new Map()
+  let allArtists
+  const artistRefMap = new Map()
 
   try {
 
@@ -20,7 +22,10 @@ export async function seedMet() {
     const batchSize = 10
 
     // fetch each object's data
-    for (let i = 0; i < ids.length; i += batchSize) {
+
+
+    // changing back to ids.length, using 10 for testing
+    for (let i = 0; i < 10; i += batchSize) {
       // cooldown to avoid bot detector
       if (i % 20 === 0 && i > 0) {
         console.log('⏸️ Pausing to avoid API limits')
@@ -110,20 +115,42 @@ export async function seedMet() {
       return
     }
 
-    await pool.query(
+    const artists = await pool.query(
       `
       INSERT INTO artists (name, birth_year, death_year, met_reference_object_id)
       VALUES ${placeholders.join(",")}
       ON CONFLICT (name) DO NOTHING
+      RETURNING *
       `, values
     )
+
+    allArtists = artists.rows
 
     console.log(`✅ Seeded ${artistMap.size} artists`)
   } catch (err) {
     console.error('❌ Error adding to database', err)
+  }
+
+  try {
+    const artistValues = []
+    const artworkPlaceholders = []
+
+    allArtists.forEach(artist => {
+
+      const { id, name, birth_year, death_year } = artist
+
+      const key = `${name}|${birth_year || ''}|${death_year || ''}`
+      artistRefMap.set(key, id)
+    })
+
+    console.log(artistRefMap)
+
+  } catch (err) {
+    
   } finally {
     await pool.end()
   }
+
 }
 
 seedMet()
