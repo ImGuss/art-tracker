@@ -22,10 +22,7 @@ export async function seedMet() {
     const batchSize = 10
 
     // fetch each object's data
-
-
-    // changing back to ids.length, using 10 for testing
-    for (let i = 0; i < 10; i += batchSize) {
+    for (let i = 0; i < ids.length; i += batchSize) {
       // cooldown to avoid bot detector
       if (i % 20 === 0 && i > 0) {
         console.log('⏸️ Pausing to avoid API limits')
@@ -93,7 +90,7 @@ export async function seedMet() {
     const placeholders = []
     let i = 0
 
-    for (const [key, artwork] of artistMap) {
+    for (const [key, artist] of artistMap) {
       const ind = i * 4
 
       placeholders.push(
@@ -101,10 +98,10 @@ export async function seedMet() {
       )
   
       values.push(
-        artwork.name,
-        artwork.birth_year,
-        artwork.death_year,
-        artwork.met_reference_object_id
+        artist.name,
+        artist.birth_year,
+        artist.death_year,
+        artist.met_reference_object_id
       )
 
       i++
@@ -115,13 +112,16 @@ export async function seedMet() {
       return
     }
 
-    const artists = await pool.query(
+    await pool.query(
       `
       INSERT INTO artists (name, birth_year, death_year, met_reference_object_id)
       VALUES ${placeholders.join(",")}
       ON CONFLICT (name) DO NOTHING
-      RETURNING *
       `, values
+    )
+
+    const artists = await pool.query(
+      `SELECT id, name, birth_year, death_year FROM artists`
     )
 
     allArtists = artists.rows
@@ -132,21 +132,70 @@ export async function seedMet() {
   }
 
   try {
-    const artistValues = []
+    const artworkValues = []
     const artworkPlaceholders = []
 
     allArtists.forEach(artist => {
 
       const { id, name, birth_year, death_year } = artist
 
-      const key = `${name}|${birth_year || ''}|${death_year || ''}`
-      artistRefMap.set(key, id)
+      const artistKey = `${name}|${birth_year || ''}|${death_year || ''}`
+      artistRefMap.set(artistKey, id)
     })
 
-    console.log(artistRefMap)
+    let i = 0
+    
+    for (const artwork of allArtworks) {
+      const { title, objectEndDate, medium, primaryImageSmall, objectID, artistDisplayName, artistBeginDate, artistEndDate  } = artwork
+      
+      if (!title || !primaryImageSmall) continue
+      
+      // match artwork to artist
+      const artworkKey = `${artistDisplayName}|${artistBeginDate || ''}|${artistEndDate || ''}`
+      const artistID = artistRefMap.get(artworkKey)
+      
+      if (!artistID) {
+        console.warn(`⚠️ Missing artist for: ${artistDisplayName}`)
+        continue
+      }
+      
+      const ind = i * 6
+
+      artworkPlaceholders.push(
+        `($${ind + 1}, $${ind + 2}, $${ind + 3}, $${ind + 4}, $${ind + 5}, $${ind + 6})`
+      )
+      
+      
+      artworkValues.push(
+        title,
+        artistID,
+        objectEndDate,
+        medium,
+        primaryImageSmall,
+        objectID,
+      )
+      
+      i++
+    }
+
+    if (artworkValues.length === 0) {
+      console.log('⚠️ No artwork to insert')
+      return
+
+    }
+
+
+    await pool.query(
+      `
+        INSERT INTO artworks (title, artist_id, year_created, medium, image_url, met_id)
+        VALUES ${artworkPlaceholders.join(",")}
+        ON CONFLICT (met_id) DO NOTHING
+      `, artworkValues
+    )
+      
 
   } catch (err) {
-    
+    console.error('❌ Error adding to database', err)
   } finally {
     await pool.end()
   }
