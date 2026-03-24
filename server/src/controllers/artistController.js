@@ -1,11 +1,13 @@
 import { createNewArtist, getAllArtists, getArtistById } from '../models/artistModel.js'
 
-export async function getArtists(req, res) {
+import { AppError } from '../utils/appError.js'
+
+export async function getArtists(req, res, next) {
   try {
     const artists = await getAllArtists()
   
     if (!artists) {
-      return res.status(404).json({error: 'No artists found'})
+      throw new AppError('No artists found', 404)
     }
   
     res.json(artists)
@@ -15,14 +17,14 @@ export async function getArtists(req, res) {
   }
 }
 
-export async function getArtist(req, res) {
+export async function getArtist(req, res, next) {
   try {
     const { id } = req.params
   
     const artist = await getArtistById(id)
   
     if (!artist) {
-      return res.status(404).json({error: 'Artist not found'})
+      throw new AppError(`Artist id ${id} not found`, 404)
     }
   
     res.json(artist)
