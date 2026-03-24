@@ -11,7 +11,7 @@ export async function getArtists(req, res) {
     res.json(artists)
     
   } catch (err) {
-    res.status(500).json({error: 'Artists not found'})
+    next(err)
   }
 }
 
@@ -28,11 +28,11 @@ export async function getArtist(req, res) {
     res.json(artist)
     
   } catch (err) {
-    res.status(500).json({error: 'Internal server error'})
+    next(err)
   }
 }
 
-export async function createArtist(req, res) {
+export async function createArtist(req, res, next) {
   try {
     console.log(req.body)
     const newArtist = await createNewArtist(req.body)
@@ -40,9 +40,6 @@ export async function createArtist(req, res) {
     res.json(newArtist)
     
   } catch (err) {
-    console.error(err)
-    res.status(err.status || 500).json({
-      error: err.message || 'Internal server error'
-    })
+    next(err)
   }
 }
