@@ -44,7 +44,7 @@ export async function createNewArtist(body) {
   
     if (query.rows.length > 0) {
       const error = new Error()
-      error.message = 'Artist already exists'
+      error.message = `Artist already exists. id: ${query.rows[0].id}`
       error.status = 409
       throw error
     } else {
@@ -59,7 +59,7 @@ export async function createNewArtist(body) {
     }
     
   } catch (err) {
-    console.error('Error adding artist to database', err)
+    console.error('Error adding artist to database: ', err)
     throw err
   }
 }
