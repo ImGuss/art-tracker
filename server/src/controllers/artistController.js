@@ -6,10 +6,6 @@ export async function getArtists(req, res, next) {
   try {
     const artists = await getAllArtists()
   
-    if (!artists) {
-      throw new AppError('No artists found', 404)
-    }
-  
     res.json(artists)
     
   } catch (err) {
@@ -19,12 +15,16 @@ export async function getArtists(req, res, next) {
 
 export async function getArtist(req, res, next) {
   try {
-    const { id } = req.params
+    const id = Number(req.params.id)
+
+    if (isNaN(id)) {
+      throw new AppError('Invalid Artist ID', 400)
+    }
   
     const artist = await getArtistById(id)
   
     if (!artist) {
-      throw new AppError(`Artist id ${id} not found`, 404)
+      throw new AppError(`Artist ID ${id} not found`, 404)
     }
   
     res.json(artist)
@@ -36,10 +36,9 @@ export async function getArtist(req, res, next) {
 
 export async function createArtist(req, res, next) {
   try {
-    console.log(req.body)
     const newArtist = await createNewArtist(req.body)
 
-    res.json(newArtist)
+    res.status(201).json(newArtist)
     
   } catch (err) {
     next(err)
