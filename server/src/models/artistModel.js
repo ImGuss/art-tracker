@@ -4,8 +4,6 @@ export async function getAllArtists() {
   try {
     const res = await pool.query(`SELECT * FROM artists`)
 
-    if (res.rows.length === 0) null
-
     return res.rows
 
   } catch (err) {
@@ -56,6 +54,8 @@ export async function createNewArtist(body) {
         `,
         [name, birthYear, deathYear, placeOfBirth, description]
       )
+
+      return res.rows
     }
     
   } catch (err) {
