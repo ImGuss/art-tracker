@@ -1,5 +1,7 @@
 import pool from '../db/db.js'
 
+import { AppError } from '../utils/appError.js'
+
 export async function getAllArtists() {
   try {
     const res = await pool.query(`SELECT * FROM artists`)
@@ -19,7 +21,7 @@ export async function getArtistById(id) {
       WHERE id = $1  
     `, [id])
 
-    if (res.rows.length === 0) null
+    if (res.rows.length === 0) return null
 
     return res.rows[0]
 
@@ -30,7 +32,7 @@ export async function getArtistById(id) {
 }
 
 export async function createNewArtist(body) {
-  const { name, birthYear, deathYear, placeOfBirth, description } = body
+  const { name, birthYear, deathYear, birthPlace, description } = body
 
   try {
     const query = await pool.query(
@@ -41,10 +43,7 @@ export async function createNewArtist(body) {
     )
   
     if (query.rows.length > 0) {
-      const error = new Error()
-      error.message = `Artist already exists. id: ${query.rows[0].id}`
-      error.status = 409
-      throw error
+      throw new AppError(`Artist already exists. id: ${query.rows[0].id}`, 409)
     } else {
       const res = await pool.query(
         `
@@ -52,10 +51,10 @@ export async function createNewArtist(body) {
           VALUES ($1, $2, $3, $4, $5)
           RETURNING *
         `,
-        [name, birthYear, deathYear, placeOfBirth, description]
+        [name, birthYear, deathYear, birthPlace, description]
       )
 
-      return res.rows
+      return res.rows[0]
     }
     
   } catch (err) {

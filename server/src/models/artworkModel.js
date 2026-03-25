@@ -21,7 +21,7 @@ export async function getArtworkById(id) {
       `, [id]
     )
 
-    if (res.rows.length === 0) null
+    if (res.rows.length === 0) return null
 
     return res.rows[0]
 
@@ -45,8 +45,8 @@ export async function createNewArtwork(body) {
       `, [title, artistId, yearCreated, medium, imageUrl]
     )
 
-    return res.rows
-    
+    return res.rows[0]
+
   } catch (err) {
     console.error('Error adding artwork to database: ', err)
     throw err
