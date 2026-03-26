@@ -40,7 +40,6 @@ export async function createNewArtwork(body) {
       `
         INSERT INTO artworks (title, artist_id, year_created, medium, image_url)
         VALUES ($1, $2, $3, $4, $5)
-        ON CONFLICT (title) DO NOTHING
         RETURNING *
       `, [title, artistId, yearCreated, medium, imageUrl]
     )
