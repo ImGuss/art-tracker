@@ -18,9 +18,9 @@ function signToken(userId) {
 }
 
 export async function register(req, res, next) {
+  const {username, email, password} = req.body
+  
   try {
-    
-    const {username, email, password} = req.body
 
     if (!username || !email || !password) {
       return next(new AppError('username, email, and password are required', 400))
@@ -47,7 +47,38 @@ export async function register(req, res, next) {
 }
 
 export async function login(req, res, next) {
-  const password = req.body.password
+  const { email, password } = req.body
 
+  try {
+    
+    if (!email || !password) {
+      return next(new AppError('email and password are required', 400))
+    }
+  
+    const user = await findUserByEmail(email)
+  
+    if (!user) {
+      return next(new AppError('Invalid email or password', 401))
+    }
+  
+    const match = await bcrypt.compare(password, user.password_hash)
 
+    if (!match) {
+      return next(new AppError('Invalid email or password', 401))
+    }
+
+    const token = signToken(user.id)
+    res.cookie('token', token, cookieOptions)
+
+    const { password_hash, ...safeUser} = user
+    res.json({user: safeUser})
+
+  } catch (err) {
+    next(err)
+  }
+}
+
+export async function logout(req, res, next) {
+  res.clearCookie('token', cookieOptions)
+  res.json({message: 'Logged out successfully'})
 }
