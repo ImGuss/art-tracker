@@ -7,7 +7,6 @@ export async function getAllArtworks() {
     return res.rows
 
   } catch (err) {
-    console.error('Error fetching artists', err)
     throw err
   }
 }
@@ -26,7 +25,6 @@ export async function getArtworkById(id) {
     return res.rows[0]
 
   } catch (err) {
-    console.error('Error fetching artwork', err)
     throw err
   }
 }
@@ -47,7 +45,6 @@ export async function createNewArtwork(body) {
     return res.rows[0]
 
   } catch (err) {
-    console.error('Error adding artwork to database: ', err)
     throw err
   }
 }

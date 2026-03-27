@@ -1,7 +1,7 @@
 import pool from '../db/db.js'
 
-export async function createUser(body, passHash) {
-  const { username, email } = body
+export async function createUser(body) {
+  const { username, email, passHash } = body
   try {
     const newUser = await pool.query(
       `
@@ -14,26 +14,37 @@ export async function createUser(body, passHash) {
     return newUser.rows[0]
 
   } catch (err) {
-    console.error('Error creating user')
     throw err
   }
 }
 
 export async function findUserByEmail(email) {
-  const user = await pool.query(
-    `SELECT * FROM users WHERE email = $1`,
-    [email]
-  )
+  try {
+    
+    const user = await pool.query(
+      `SELECT * FROM users WHERE email = $1`,
+      [email]
+    )
+  
+    return user.rows[0] || null
 
-  return user.rows[0] || null
+  } catch (err) {
+    throw err
+  }
 }
 
 export async function findUserById(id) {
-  const user = await pool.query(
-    `SELECT id, username, email, created_at
-    FROM users WHERE id = $1`,
-    [id]
-  )
-
-  return user.rows[0] || null
+  try {
+    
+    const user = await pool.query(
+      `SELECT id, username, email, created_at
+      FROM users WHERE id = $1`,
+      [id]
+    )
+  
+    return user.rows[0] || null
+    
+  } catch (err) {
+    throw err
+  }
 }

@@ -9,7 +9,6 @@ export async function getAllArtists() {
     return res.rows
 
   } catch (err) {
-    console.error('Error fetching artists', err)
     throw err
   }
 }
@@ -24,7 +23,6 @@ export async function getArtistById(id) {
     return res.rows[0] || null
 
   } catch (err) {
-    console.error('Error fetching artist', err)
     throw err
   }
 }
@@ -56,7 +54,6 @@ export async function createNewArtist(body) {
     }
     
   } catch (err) {
-    console.error('Error adding artist to database: ', err)
     throw err
   }
 }
