@@ -1,4 +1,5 @@
 import express from 'express'
+import cookieParser from 'cookie-parser'
 
 // routers
 import { artistRouter } from './routes/artistRoutes.js'
@@ -10,6 +11,9 @@ import { errorHandler } from './middleware/errorHandler.js'
 const app = express()
 
 app.use(express.json())
+
+// cookie middleware
+app.use(cookieParser())
 
 // routes
 app.use('/api/auth', authRouter)
