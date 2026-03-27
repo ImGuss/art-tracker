@@ -1,5 +1,5 @@
 import { getAllArtworks, getArtworkById, createNewArtwork } from '../models/artworkModel.js'
-import { AppError } from '../utils/appError.js'
+import { AppError } from '../utils/AppError.js'
 
 export async function getArtworks(req, res, next) {
   try {
@@ -17,13 +17,13 @@ export async function getArtwork(req, res, next) {
     const id = Number(req.params.id)
 
     if (isNaN(id)) {
-      throw new AppError('Invalid Artwork ID', 400)
+      return next(new AppError('Invalid Artwork ID', 400))
     }
 
     const artwork = await getArtworkById(id)
 
     if(!artwork) {
-      throw new AppError(`Artwork id ${id} not found`, 404)
+      return next(new AppError(`Artwork id ${id} not found`, 404))
     }
 
     res.json(artwork)

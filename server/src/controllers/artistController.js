@@ -1,6 +1,6 @@
 import { createNewArtist, getAllArtists, getArtistById } from '../models/artistModel.js'
 
-import { AppError } from '../utils/appError.js'
+import { AppError } from '../utils/AppError.js'
 
 export async function getArtists(req, res, next) {
   try {
@@ -18,13 +18,13 @@ export async function getArtist(req, res, next) {
     const id = Number(req.params.id)
 
     if (isNaN(id)) {
-      throw new AppError('Invalid Artist ID', 400)
+      return next(new AppError('Invalid Artist ID', 400))
     }
   
     const artist = await getArtistById(id)
   
     if (!artist) {
-      throw new AppError(`Artist ID ${id} not found`, 404)
+      return next(new AppError(`Artist ID ${id} not found`, 404))
     }
   
     res.json(artist)
