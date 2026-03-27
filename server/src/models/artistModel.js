@@ -21,9 +21,7 @@ export async function getArtistById(id) {
       WHERE id = $1  
     `, [id])
 
-    if (res.rows.length === 0) return null
-
-    return res.rows[0]
+    return res.rows[0] || null
 
   } catch (err) {
     console.error('Error fetching artist', err)
