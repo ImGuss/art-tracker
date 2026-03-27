@@ -14,7 +14,7 @@ const cookieOptions = {
 }
 
 function signToken(userId) {
-  jwt.sign({userId}, process.env.JWT_SECRET, {expiresIn: '7d'})
+  return jwt.sign({userId}, process.env.JWT_SECRET, {expiresIn: '7d'})
 }
 
 export async function register(req, res, next) {
@@ -39,7 +39,7 @@ export async function register(req, res, next) {
     const token = signToken(user.id)
     res.cookie('token', token, cookieOptions)
 
-    res.status(201),json({user})
+    res.status(201).json({user})
 
   } catch (err) {
     next(err)
