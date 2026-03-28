@@ -45,7 +45,7 @@ export async function register(req, res, next) {
     const token = signToken(user.id)
     res.cookie('token', token, cookieOptions)
 
-    res.status(201).json({user})
+    res.status(201).json(user)
 
   } catch (err) {
     next(err)
@@ -77,7 +77,7 @@ export async function login(req, res, next) {
     res.cookie('token', token, cookieOptions)
 
     const { password_hash, ...safeUser} = user
-    res.json({user: safeUser})
+    res.json(safeUser)
 
   } catch (err) {
     next(err)
