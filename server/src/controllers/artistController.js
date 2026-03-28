@@ -4,6 +4,7 @@ import { AppError } from '../utils/AppError.js'
 
 export async function getArtists(req, res, next) {
   try {
+
     const artists = await getAllArtists()
   
     res.json(artists)
@@ -15,6 +16,7 @@ export async function getArtists(req, res, next) {
 
 export async function getArtist(req, res, next) {
   try {
+
     const id = Number(req.params.id)
 
     if (isNaN(id)) {
@@ -36,11 +38,21 @@ export async function getArtist(req, res, next) {
 
 export async function createArtist(req, res, next) {
   try {
+  
+    const { name } = req.body
+    
+    if (!name) {
+      return next(new AppError('Artist name is required', 400))
+    }
+
     const newArtist = await createNewArtist(req.body)
 
     res.status(201).json(newArtist)
     
   } catch (err) {
+    if (err.code === '23505') {
+      return next(new AppError('That artist already exists', 409))
+    }
     next(err)
   }
 }
