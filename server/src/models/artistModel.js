@@ -3,39 +3,32 @@ import pool from '../db/db.js'
 import { AppError } from '../utils/AppError.js'
 
 export async function getAllArtists() {
-  try {
-    const res = await pool.query(`SELECT * FROM artists`)
+  const res = await pool.query(`SELECT * FROM artists`)
 
-    return res.rows
-
-  } catch (err) {
-    throw err
-  }
+  return res.rows
 }
 
 export async function getArtistById(id) {
-  try { 
-    const res = await pool.query(`
-      SELECT * FROM artists
-      WHERE id = $1  
-    `, [id])
+  const res = await pool.query(`
+    SELECT * FROM artists
+    WHERE id = $1  
+  `, [id])
 
-    return res.rows[0] || null
-
-  } catch (err) {
-    throw err
-  }
+  return res.rows[0] || null
 }
 
 export async function createNewArtist(body) {
-  const { name, birthYear, deathYear, birthPlace, description } = body
+  const { name, birth_year, death_year, birth_place, description } = body
 
   try {
+
     const query = await pool.query(
       `
         SELECT * FROM artists
-        WHERE name = $1 AND birth_year = $2 AND death_year = $3
-      `, [name, birthYear, deathYear]
+        WHERE name = $1
+        AND birth_year IS NOT DISTINCT FROM $2
+        AND death_year IS NOT DISTINCT FROM $3
+      `, [name, birth_year, death_year]
     )
   
     if (query.rows.length > 0) {
@@ -47,7 +40,7 @@ export async function createNewArtist(body) {
           VALUES ($1, $2, $3, $4, $5)
           RETURNING *
         `,
-        [name, birthYear, deathYear, birthPlace, description]
+        [name, birth_year, death_year, birth_place, description]
       )
 
       return res.rows[0]
