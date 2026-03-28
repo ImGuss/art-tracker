@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-import { createUser, findUserByEmail, findUserById } from '../models/userModel.js'
+import { createUser, findUserByEmail, findUserById, findUserByUsername } from '../models/userModel.js'
 import { AppError } from '../utils/AppError.js'
 
 const SALT_ROUNDS = 12
@@ -18,17 +18,23 @@ function signToken(userId) {
 }
 
 export async function register(req, res, next) {
-  const {username, email, password} = req.body
-  
   try {
+  
+    const {username, email, password} = req.body
 
     if (!username || !email || !password) {
       return next(new AppError('username, email, and password are required', 400))
     }
 
-    const existing = await findUserByEmail(email)
+    const usernameExists = await findUserByUsername(username)
 
-    if (existing) {
+    if (usernameExists) {
+      return next(new AppError('Username already taken', 409))
+    }
+
+    const emailExists = await findUserByEmail(email)
+
+    if (emailExists) {
       return next(new AppError('An account with that email already exists', 409))
     }
   
@@ -47,9 +53,9 @@ export async function register(req, res, next) {
 }
 
 export async function login(req, res, next) {
-  const { email, password } = req.body
-
   try {
+  
+    const { email, password } = req.body
     
     if (!email || !password) {
       return next(new AppError('email and password are required', 400))
@@ -78,7 +84,7 @@ export async function login(req, res, next) {
   }
 }
 
-export async function logout(req, res, next) {
+export async function logout(req, res) {
   res.clearCookie('token', cookieOptions)
   res.json({message: 'Logged out successfully'})
 }
