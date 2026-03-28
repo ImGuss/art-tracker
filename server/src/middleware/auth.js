@@ -27,7 +27,7 @@ export async function protect(req, res, next) {
 
   } catch (err) {
     if (err.name === 'TokenExpiredError') {
-      return next(new AppError('Your session has expired, pleas log in again', 401))
+      return next(new AppError('Your session has expired, please log in again', 401))
     }
     if (err.name === 'JsonWebTokenError') {
       return next(new AppError('Invalid session, please log in again', 401))
