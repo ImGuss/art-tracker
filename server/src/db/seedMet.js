@@ -193,11 +193,10 @@ export async function seedMet() {
       `, artworkValues
     )
       
-
   } catch (err) {
     console.error('❌ Error adding to database', err)
   } finally {
-    await pool.end()
+    pool.end()
   }
 
 }
