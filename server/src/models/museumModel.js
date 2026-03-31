@@ -8,8 +8,20 @@ export async function getAllMuseums() {
 export async function getMuseumById(id) {
   const res = await pool.query(
     `
-      SELECT * FROM museums
-      WHERE id = $1
+      SELECT
+        m.*,
+        COALESCE(JSON_AGG(
+        json_build_object(
+          'id', aw.id,
+          'title', aw.title,
+          'image_url', aw.image_url,
+          'artist_name', a.name
+        )) FILTER (WHERE aw.id IS NOT NULL), '[]') AS artworks
+      FROM museums m
+      LEFT JOIN artworks aw ON aw.museum_id = m.id
+      LEFT JOIN artists a ON aw.artist_id = a.id
+      WHERE m.id = $1
+      GROUP BY m.id
     `, [id]
   )
 
