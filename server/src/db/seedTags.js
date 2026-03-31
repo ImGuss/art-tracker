@@ -52,4 +52,71 @@ async function seedTags() {
   }
 }
 
-seedTags()
+// seedTags()
+
+async function linkArtToTags() {
+  let artWorks
+  let tags
+  const values = []
+  const placeholders = []
+
+  try {
+    artWorks = (await pool.query(
+      `
+        SELECT id, medium
+        FROM artworks
+        WHERE medium IS NOT NULL
+      `
+    )).rows
+
+    tags = (await pool.query(`SELECT * FROM tags`)).rows
+
+  } catch (err) {
+    console.error('Error fetching artworks', err)
+  }
+
+  try {
+    let ind = 0
+
+    for (const artwork of artWorks) {
+      const lowerCaseMedium = artwork.medium.toLowerCase()
+      
+      tags.forEach(tag => {
+        const lowerCaseName = tag.name.toLowerCase()
+        const regex = new RegExp(`\\b${lowerCaseName}\\b`)
+
+        if (regex.test(lowerCaseMedium)) {
+          values.push(artwork.id, tag.id)
+
+          placeholders.push(`($${ind + 1}, $${ind + 2})`)
+          
+          ind += 2
+        }
+      })
+    }
+
+    if (values.length === 0) {
+      console.log('No tags to insert')
+      return
+    }
+
+    await pool.query(
+      `
+        INSERT INTO artwork_tags (artwork_id, tag_id)
+        VALUES ${placeholders.join(',')}
+        ON CONFLICT (artwork_id, tag_id) DO NOTHING
+      `, values
+    )
+
+    console.log(`Seeded ${values.length / 2} tags`)
+
+  } catch (err) {
+    console.error('Error adding to database', err)
+  } finally {
+    pool.end()
+  }
+
+
+}
+
+linkArtToTags()
