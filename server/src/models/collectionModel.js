@@ -50,7 +50,7 @@ export async function createNewCollection(userId, name) {
   return res.rows[0]
 }
 
-export async function deleteCollection(id) {
+export async function deleteCollectionById(id) {
   const res = await pool.query(
     `
       DELETE FROM collections
