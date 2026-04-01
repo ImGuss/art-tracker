@@ -166,3 +166,7 @@ export async function removeFromCollection(req, res, next) {
     next(err)
   }
 }
+
+export async function toggleFavorite(req, res, next) {
+  // still to do
+}
