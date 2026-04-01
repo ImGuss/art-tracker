@@ -19,7 +19,7 @@ export async function getArtwork(req, res, next) {
     const id = Number(req.params.id)
 
     if (isNaN(id)) {
-      return next(new AppError('Invalid Artwork ID', 400))
+      return next(new AppError('Invalid artwork id', 400))
     }
 
     const artwork = await getArtworkById(id)
