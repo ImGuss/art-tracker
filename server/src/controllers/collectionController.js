@@ -102,7 +102,7 @@ export async function deleteCollection(req, res, next) {
 export async function addItemToCollection(req, res, next) {
   try {
     
-    const collectionId = Number(req.params.collectionId)
+    const collectionId = Number(req.params.id)
     const artworkId = Number(req.params.artworkId)
 
     if (isNaN(collectionId) || isNaN(artworkId)) {
@@ -137,7 +137,7 @@ export async function addItemToCollection(req, res, next) {
 export async function removeFromCollection(req, res, next) {
   try {
     
-    const collectionId = Number(req.params.collectionId)
+    const collectionId = Number(req.params.id)
     const artworkId = Number(req.params.artworkId)
 
     if (isNaN(collectionId) || isNaN(artworkId)) {
