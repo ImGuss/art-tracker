@@ -8,7 +8,7 @@ export async function protect(req, res, next) {
   try {
 
     if (!token) {
-      return next(new AppError('Session cookie does not exist', 401))
+      return next(new AppError('Must be logged in to perform that action', 401))
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
