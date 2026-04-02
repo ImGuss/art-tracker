@@ -24,7 +24,8 @@ export async function getCollectionById(id) {
           json_build_object(
             'title', aw.title,
             'image_url', aw.image_url,
-            'artist_name', a.name
+            'artist_name', a.name,
+            'favorite', ci.favorite
           )) FILTER (WHERE aw.id IS NOT NULL), '[]') AS items
       FROM collections c
       LEFT JOIN collection_items ci ON ci.collection_id = c.id
