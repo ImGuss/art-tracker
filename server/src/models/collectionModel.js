@@ -86,7 +86,7 @@ export async function removeItemFromCollection(collectionId, artworkId) {
   return res.rows[0] || null
 }
 
-export async function toggleFavorite(collectionId, artworkId) {
+export async function toggleFavoriteItem(collectionId, artworkId) {
   const res = await pool.query(
     `
       UPDATE collection_items

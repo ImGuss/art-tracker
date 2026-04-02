@@ -5,7 +5,7 @@ import {
   deleteCollectionById,
   addNewItemToCollection,
   removeItemFromCollection,
-  toggleFavorite
+  toggleFavoriteItem
 } from '../models/collectionModel.js'
 
 import { AppError } from '../utils/AppError.js'
@@ -187,7 +187,7 @@ export async function toggleFavorite(req, res, next) {
       return next(new AppError('Not authorized to favorite this collection', 403))
     }
     
-    const collectionItem = await toggleFavorite(collectionId, artworkId)
+    const collectionItem = await toggleFavoriteItem(collectionId, artworkId)
 
     if (!collectionItem) {
       return next(new AppError('Item not found in collection', 404))
