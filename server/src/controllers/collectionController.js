@@ -168,5 +168,34 @@ export async function removeFromCollection(req, res, next) {
 }
 
 export async function toggleFavorite(req, res, next) {
-  // still to do
+  try {
+
+    const collectionId = Number(req.params.id)
+    const artworkId = Number(req.params.artworkId)
+
+    if (isNaN(collectionId) || isNaN(artworkId)) {
+      return next(new AppError('Collection id and artwork id must be numbers', 400))
+    }
+
+    const collection = await getCollectionById(collectionId)
+
+    if (!collection) {
+      return next(new AppError('Collection not found', 404))
+    }
+
+    if (collection.user_id !== req.user.id) {
+      return next(new AppError('Not authorized to favorite this collection', 403))
+    }
+    
+    const collectionItem = await toggleFavorite(collectionId, artworkId)
+
+    if (!collectionItem) {
+      return next(new AppError('Item not found in collection', 404))
+    }
+
+    res.json(collectionItem)
+
+  } catch (err) {
+    next(err)
+  }
 }

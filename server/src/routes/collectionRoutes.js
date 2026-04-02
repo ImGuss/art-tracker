@@ -26,4 +26,4 @@ collectionRouter.post('/', createCollection)
 collectionRouter.delete('/:id/items/:artworkId', removeFromCollection)
 collectionRouter.delete('/:id', deleteCollection)
 
-// collectionRouter.patch('/:id/items/:artworkId', toggleFavorite)
+collectionRouter.patch('/:id/items/:artworkId', toggleFavorite)
