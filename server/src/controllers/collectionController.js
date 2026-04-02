@@ -184,7 +184,7 @@ export async function toggleFavorite(req, res, next) {
     }
 
     if (collection.user_id !== req.user.id) {
-      return next(new AppError('Not authorized to favorite this collection', 403))
+      return next(new AppError('Not authorized to favorite this item in this collection', 403))
     }
     
     const collectionItem = await toggleFavoriteItem(collectionId, artworkId)
