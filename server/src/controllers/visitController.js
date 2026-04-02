@@ -54,7 +54,7 @@ export async function createVisit(req, res, next) {
     const { museum_id, visit_date } = req.body
 
     if (!museum_id || !visit_date) {
-      return next(new AppError('Museum id, and visit date are required', 400))
+      return next(new AppError('Museum id and visit date are required', 400))
     }
 
     const visit = await createNewVisit(userId, museum_id, visit_date)
@@ -162,7 +162,7 @@ export async function removeFromVisit(req, res, next) {
     const deletedVisitItem = await removeArtworkFromVisit(visitId, artworkId)
 
     if (!deletedVisitItem) {
-      return next(new AppError('Item not found in visit', 404))
+      return next(new AppError('Artwork not found in visit', 404))
     }
 
     res.json(deletedVisitItem)
