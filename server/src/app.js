@@ -8,6 +8,7 @@ import { authRouter } from './routes/authRoutes.js'
 import { museumRouter } from './routes/museumRoutes.js'
 import { collectionRouter } from './routes/collectionRoutes.js'
 import { visitRouter } from './routes/visitRoutes.js'
+import { tagRouter } from './routes/tagRoutes.js'
 
 import { errorHandler } from './middleware/errorHandler.js'
 
@@ -25,6 +26,7 @@ app.use('/api/artworks', artworkRouter)
 app.use('/api/museums', museumRouter)
 app.use('/api/collections', collectionRouter)
 app.use('/api/visits', visitRouter)
+app.use('/api/tags', tagRouter)
 
 // error middleware
 app.use(errorHandler)
