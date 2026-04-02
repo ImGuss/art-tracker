@@ -124,11 +124,11 @@ export async function addItemToCollection(req, res, next) {
     res.json(collectionItem)
 
   } catch (err) {
-    if (err.code === '23505') {
-      return next(new AppError('That artwork is already in this collection', 400))
-    }
     if (err.code === '23503') {
       return next( new AppError('Artwork not found', 404))
+    }
+    if (err.code === '23505') {
+      return next(new AppError('That artwork is already in this collection', 409))
     }
     next(err)
   }
