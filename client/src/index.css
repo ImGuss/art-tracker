@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+:root {
+  --color-text: #2D2A26;
+  --color-gold: #BB8A47;
+  --card-bg: #F2EDE7;
+  --bg: #FCF9F6;
+}
+
+/* Typography: Playfair Display (headings) + Inter (body). Planned pages: Dashboard, Artists, Artworks, Collections, Museums, Visits. */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--color-text);
+  background-color: var(--bg);
+  font-family: Inter, Roboto;
+}
