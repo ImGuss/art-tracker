@@ -84,6 +84,16 @@ export async function login(req, res, next) {
   }
 }
 
+export async function getMe(req, res, next) {
+  try {
+    
+    res.json(req.user)
+
+  } catch (err) {
+    next(err)
+  }
+}
+
 export async function logout(req, res) {
   res.clearCookie('token', cookieOptions)
   res.json({message: 'Logged out successfully'})
