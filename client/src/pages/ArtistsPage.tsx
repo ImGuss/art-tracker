@@ -10,7 +10,7 @@ interface Artist {
   description: string | null
 }
 
-export default function ArtistsPage() {
+const ArtistsPage = () => {
 
   const [artists, setArtists] = useState<Artist[]>([])
   const [error, setError] = useState<string | null>(null)
@@ -42,3 +42,5 @@ export default function ArtistsPage() {
     </div>
   )
 }
+
+export default ArtistsPage

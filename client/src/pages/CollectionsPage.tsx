@@ -1,5 +1,7 @@
-export default function CollectionsPage() {
+const CollectionsPage = () => {
   return (
     <div>Collections Page</div>
   )
 }
+
+export default CollectionsPage
