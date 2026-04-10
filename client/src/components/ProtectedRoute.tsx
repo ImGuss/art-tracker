@@ -1,5 +1,5 @@
-import { Navigate } from "react-router"
-import { useAuth } from "../hooks/useAuth"
+import { Navigate } from 'react-router'
+import { useAuth } from '../hooks/useAuth'
 
 const ProtectedRoute = ({children}: {children: React.ReactNode}) => {
   const {user, isLoading} = useAuth()
@@ -12,7 +12,7 @@ const ProtectedRoute = ({children}: {children: React.ReactNode}) => {
 
   if (!isLoading && !user) {
     return (
-      <Navigate to="/login" replace />
+      <Navigate to='/login' replace />
     )
   }
 

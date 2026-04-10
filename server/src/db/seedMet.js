@@ -115,7 +115,7 @@ export async function seedMet() {
     await pool.query(
       `
       INSERT INTO artists (name, birth_year, death_year, met_reference_object_id)
-      VALUES ${placeholders.join(",")}
+      VALUES ${placeholders.join(',')}
       ON CONFLICT (name) DO NOTHING
       `, values
     )
@@ -188,7 +188,7 @@ export async function seedMet() {
     await pool.query(
       `
         INSERT INTO artworks (title, artist_id, year_created, medium, image_url, met_id)
-        VALUES ${artworkPlaceholders.join(",")}
+        VALUES ${artworkPlaceholders.join(',')}
         ON CONFLICT (met_id) DO NOTHING
       `, artworkValues
     )

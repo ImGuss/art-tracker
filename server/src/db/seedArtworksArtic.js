@@ -87,7 +87,7 @@ async function seedArtworks() {
 
   await pool.query(`
     INSERT INTO artworks (title, artist_id, year_created, medium, image_url, artic_id)
-    VALUES ${placeholders.join(",")}
+    VALUES ${placeholders.join(',')}
     ON CONFLICT (artic_id) DO NOTHING
     `, values)
 
