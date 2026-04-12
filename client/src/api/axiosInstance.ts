@@ -2,9 +2,8 @@ import axios from 'axios'
 
 const axiosInstance = axios.create({
   baseURL: '/api',
-  timeout: 1000,
+  withCredentials: true,
   headers: {
-    withCredentials: true,
     'Content-Type': 'application/json'
   }
 })
