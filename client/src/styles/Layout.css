@@ -1,0 +1,9 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 2px;
+  flex-grow: 1;
+  margin: 2rem;
+}
