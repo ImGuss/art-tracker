@@ -1,5 +1,6 @@
 header {
   border-bottom: 1.5px solid var(--border-color);
+  margin-bottom: 1rem;
 }
 
 .navbar {
@@ -16,7 +17,7 @@ header {
 
 .title {
   font-size: 1.4rem;
-  font-family: Playfair Display, Georgia, Galasio;
+  font-family: var(--header-font);
   font-weight: 600;
 }
 
@@ -27,11 +28,11 @@ header {
   flex: 1;
 }
 
-.nav-links-container a {
+.nav-links-container a, .drawer-nav-links a {
   color: var(--color-text-grey);
 }
 
-.nav-links-container > .active > a {
+.nav-links-container > a.active {
   text-decoration: underline 2px var(--color-gold);
   text-underline-offset: 0.5rem;
   color: var(--color-text);
@@ -87,26 +88,38 @@ header {
   .mobile-drawer {
     display: flex;
     flex-direction: column;
-    max-width: 30%;
-    align-content: end;
-    justify-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0;
+    font-size: 0.9rem;
   }
 
-  .mobile-drawer a {
+  .drawer-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0 1rem;
+  }
+
+  .drawer-nav-links a {
     border-bottom: 1.5px solid var(--border-color);
+    padding: 0.5rem;
     width: 100%;
   }
 
-  .mobile-drawer > .active {
-    color: var(--color-gold);
+  .drawer-nav-links > a.active {
+    text-decoration: underline 2px var(--color-gold);
+    color: var(--color-text);
+    text-underline-position: under;
   }
 
   .nav-profile-mobile {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    padding: 0.5rem 1.5rem;
+  }
+
+  .drawer-nav-links > .last {
+    border: none;
   }
   
 }

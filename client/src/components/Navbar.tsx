@@ -55,23 +55,23 @@ const Navbar = () => {
       {
         isMenuOpen ?
         <div className="mobile-drawer">
-          <NavLink to="/">Dashboard</NavLink>
-          <NavLink to="/artists">Artists</NavLink>
-          <NavLink to="/artworks">Artworks</NavLink>
-          <NavLink to="/museums">Museums</NavLink>
-          {user && <NavLink to="/visits">Visits</NavLink> }
-          {user && <NavLink to="/collections">Collections</NavLink> }
+          <div className="drawer-nav-links">
+            <NavLink to="/">Dashboard</NavLink>
+            <NavLink to="/artists">Artists</NavLink>
+            <NavLink to="/artworks">Artworks</NavLink>
+            <NavLink to="/museums">Museums</NavLink>
+            {user && <NavLink to="/visits">Visits</NavLink> }
+            {user && <NavLink to="/collections">Collections</NavLink> }
+            {user ? null : <NavLink to="/login">Login</NavLink>}
+            {user ? null: <NavLink to="/register" className="last">Register</NavLink>}
+          </div>
 
           {
             user ?
             <div className="nav-profile-mobile">
               <p>Hello, {user.username}</p>
               <button className="logout-btn" onClick={logout}>Logout</button>
-            </div> :
-            <div className="nav-profile-mobile">
-              <NavLink to="/login"><span className="gold">Login</span></NavLink>
-              <NavLink to="/register"><span className="gold">Register</span></NavLink>
-            </div>
+            </div> : null
           }
         </div> : null
       }
