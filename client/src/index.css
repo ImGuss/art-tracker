@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 :root {
+  /* colors */
   --color-text: #2D2A26;
   --color-text-white: #FCF9F6;
   --color-text-grey: #646464;
@@ -8,12 +9,18 @@
   --card-bg: #F2EDE7;
   --bg: #F7F1EA;
   --border-color: #D5D1Ca;
-}
 
-/* Typography: Playfair Display (headings) + Inter (body). Planned pages: Dashboard, Artists, Artworks, Collections, Museums, Visits. */
+  /* fonts */
+  --header-font: 'Playfair Display', Georgia, Galasio;
+  --main-font: Inter, Roboto;
+}
 
 * {
   box-sizing: border-box;
+}
+
+html {
+  scrollbar-gutter: stable;
 }
 
 #root {
@@ -25,7 +32,7 @@
 body {
   color: var(--color-text);
   background-color: var(--bg);
-  font-family: Inter, Roboto;
+  font-family: var(--main-font);
   margin: 0;
   min-height: 100vh;
   display: flex;
@@ -38,7 +45,7 @@ ul, h1, h2, h3, h4, h5, h6, p {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: Playfair Display, Georgia, Galasio;
+  font-family: var(--header-font);
 }
 
 a {
