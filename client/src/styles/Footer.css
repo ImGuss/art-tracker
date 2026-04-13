@@ -1,0 +1,15 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  font-size: 0.8rem;
+  gap: 0.5rem
+}
+
+.footer > a {
+  color: var(--color-gold);
+}
+
+.footer > a:hover {
+  color: var(--color-text);
+}
