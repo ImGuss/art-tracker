@@ -3,16 +3,38 @@ import pool from '../db/db.js'
 import { AppError } from '../utils/AppError.js'
 
 export async function getAllArtists() {
-  const res = await pool.query(`SELECT * FROM artists`)
+  const res = await pool.query(
+    `
+      SELECT DISTINCT ON (a.id)
+        a.*,
+        aw.image_url AS example_artwork_url
+      FROM artists a
+      LEFT JOIN artworks aw ON aw.artist_id = a.id
+      ORDER BY a.id, aw.id ASC
+    `
+  )
 
   return res.rows
 }
 
 export async function getArtistById(id) {
-  const res = await pool.query(`
-    SELECT * FROM artists
-    WHERE id = $1  
-  `, [id])
+  const res = await pool.query(
+    `
+      SELECT
+        a.*,
+        COALESCE(JSON_AGG(
+        json_build_object(
+          'id', aw.id,
+          'title', aw.title,
+          'image_url', aw.image_url,
+          'year_created', aw.year_created
+        )) FILTER (WHERE aw.id IS NOT NULL), '[]') AS artworks
+      FROM artists a
+      LEFT JOIN artworks aw ON aw.artist_id = a.id
+      WHERE a.id = $1
+      GROUP BY a.id
+    `
+  , [id])
 
   return res.rows[0] || null
 }
