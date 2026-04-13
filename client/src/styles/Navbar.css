@@ -22,7 +22,7 @@ header {
 
 .nav-links-container {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
   font-size: 0.9rem;
   flex: 1;
 }
