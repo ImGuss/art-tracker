@@ -1,18 +1,13 @@
 import { createContext, useEffect, useState } from 'react'
 import axiosInstance from '../api/axiosInstance'
 
-interface User {
-  id: number,
-  username: string,
-  email: string,
-  created_at: string
-}
+import type { User } from '../types/user';
 
 interface AuthContextType  {
-  user: User | null,
-  isLoading: boolean,
-  login: (user: User) => void,
-  logout: () => void
+  user: User | null;
+  isLoading: boolean;
+  login: (user: User) => void;
+  logout: () => void;
 }
   
 export const AuthContext = createContext<AuthContextType>({
