@@ -2,7 +2,7 @@ import pool from '../db/db.js'
 
 import { AppError } from '../utils/AppError.js'
 
-export async function getAllArtists() {
+export async function getAllArtists(limit, offset) {
   const res = await pool.query(
     `
       SELECT DISTINCT ON (a.id)
@@ -11,7 +11,8 @@ export async function getAllArtists() {
       FROM artists a
       LEFT JOIN artworks aw ON aw.artist_id = a.id
       ORDER BY a.id, aw.id ASC
-    `
+      LIMIT $1 OFFSET $2
+    `, [limit, offset]
   )
 
   return res.rows

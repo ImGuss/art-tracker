@@ -5,7 +5,10 @@ import { AppError } from '../utils/AppError.js'
 export async function getArtists(req, res, next) {
   try {
 
-    const artists = await getAllArtists()
+    const limit = parseInt(req.query.limit, 10) || 20
+    const offset = parseInt(req.query.offset, 10) || 0
+
+    const artists = await getAllArtists(limit, offset)
   
     res.json(artists)
     
