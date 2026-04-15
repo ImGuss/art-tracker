@@ -63,22 +63,33 @@ const ArtistsPage = () => {
   }
 
   const artistElements = artists.map(artist => (
-      <div key={artist.id} >{artist.name}</div>
+      <ArtistCard
+        key={artist.id}
+        artist={artist}
+      />
   ))
 
-  const firstArtist = artists[0]
-
   return (
-    <div>
-      Artists Page
-      {artistElements}
-      {artists.length > 0 ? 
-        <ArtistCard
-          artist={firstArtist}
-        /> : null
-      }
+    <section className="artist-page">
+      <h2>Artists</h2>
+
+      <div className="artist-list">
+        {artistElements}
+      </div>
       { error && <p>{error}</p> }
-    </div>
+
+      {
+        hasMore ?
+        <button
+          className={`view-more-btn ${isLoading && 'disabled-btn'}`}
+          disabled={isLoading}
+          onClick={loadMore}
+        >
+          View More
+        </button> : null
+      }
+      
+    </section>
   )
 }
 
