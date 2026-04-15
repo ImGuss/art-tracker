@@ -4,7 +4,7 @@ import { Menu, X } from 'lucide-react'
 
 import { useAuth } from '../hooks/useAuth'
 
-import '../styles/Navbar.css'
+import './Navbar.css'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)

@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router'
 
-import '../styles/Layout.css'
+import './Layout.css'
 
 import Navbar from './Navbar'
 import Footer from './Footer'
