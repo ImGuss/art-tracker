@@ -13,6 +13,8 @@
   /* fonts */
   --header-font: 'Playfair Display', Georgia, Galasio;
   --main-font: Inter, Roboto;
+
+  --btn-border-radius: 3px;
 }
 
 * {
