@@ -65,3 +65,7 @@ button {
 .gold {
   color: var(--color-gold);
 }
+
+.loading {
+  text-align: center;
+}
