@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { NavLink } from 'react-router'
 
 import type { Artist } from '../types/artist'
 
@@ -71,11 +72,25 @@ const ArtistsPage = () => {
 
   return (
     <section className="artist-page">
-      <h2>Artists</h2>
+      <div className="artist-title-container">
+        <h2 className="artist-title">Artists</h2>
+        <NavLink
+          className="add-artist-link"
+          to="/artists/add"
+        >
+          Add Artist
+        </NavLink>
+      </div>
 
-      <div className="artist-list">
+      <div className="artist-list-container">
         {artistElements}
       </div>
+
+      {
+        isLoading ?
+        <div className="loading">Loading...</div> : null
+      }
+
       { error && <p>{error}</p> }
 
       {
