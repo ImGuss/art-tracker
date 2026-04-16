@@ -24,6 +24,7 @@
 .artist-name {
   font-weight: 700;
   font-size: 0.9rem;
+  font-family: var(--header-font);
 }
 
 .artist-dates {
