@@ -1,0 +1,28 @@
+.artwork-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  background-color: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 3px;
+  padding: 0.8rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.artwork-card:hover {
+  transform: translateY(-5px);
+}
+
+.artwork-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.artwork-title {
+  font-weight: 700;
+  font-size: 0.9rem;
+  font-family: var(--header-font);
+}

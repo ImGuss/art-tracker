@@ -1,3 +1,5 @@
+import type { Artwork } from './artwork'
+
 export interface Artist {
   id: number,
   name: string,
@@ -8,4 +10,8 @@ export interface Artist {
   example_artwork_url: string | null;
   artic_id: number | null;
   met_reference_object_id: number | null;
+}
+
+export interface ArtistDetail extends Artist {
+  artworks: Artwork[];
 }
