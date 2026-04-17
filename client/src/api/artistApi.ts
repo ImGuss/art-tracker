@@ -7,3 +7,9 @@ export async function getArtists(limit: number, offset: number) {
 
   return res.data
 }
+
+export async function getArtistById(id: number) {
+  const res = await axiosInstance.get(`/artists/${id}`)
+  
+  return res.data
+}
