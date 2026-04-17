@@ -28,7 +28,8 @@ export async function getArtistById(id) {
           'id', aw.id,
           'title', aw.title,
           'image_url', aw.image_url,
-          'year_created', aw.year_created
+          'year_created', aw.year_created,
+          'medium', aw.medium
         )) FILTER (WHERE aw.id IS NOT NULL), '[]') AS artworks
       FROM artists a
       LEFT JOIN artworks aw ON aw.artist_id = a.id
