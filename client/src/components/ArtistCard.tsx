@@ -25,14 +25,14 @@ const ArtistCard = ({ artist }: ArtistCardProps) => {
         src={example_artwork_url ?? undefined}
         alt={`Example painting by ${name}`}
       />
-      <p className="artist-name">{name}</p>
+      <p className="artist-card-name">{name}</p>
       { birth_year ?
-        <div className="artist-dates">
-          <span className="birth-year">{birth_year}</span>
+        <div className="artist-card-dates">
+          <span>{birth_year}</span>
           <span> - </span> 
-          <span className="death-year">{death_year}</span>
+          <span>{death_year}</span>
         </div> :
-        <div className="artist-dates">Unknown</div>
+        <div className="artist-card-dates">Unknown</div>
       }
       <NavLink
         className="view-artworks-link"
