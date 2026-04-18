@@ -25,6 +25,24 @@
   font-weight: 700;
   font-size: 0.9rem;
   font-family: var(--header-font);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  overflow: hidden;
+}
+
+.artwork-artist {
+  color: var(--color-gold);
+  transition: opacity 0.2s ease;
+}
+
+.artwork-artist:visited {
+  color: var(--color-gold);
+}
+
+.artwork-artist:hover {
+  opacity: 0.8;
 }
 
 .artwork-year, .artwork-medium {
@@ -35,6 +53,10 @@
 .artwork-medium {
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--border-color);
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .view-details-link {
@@ -45,7 +67,7 @@
   padding: 0.5rem;
   border-radius: var(--btn-border-radius);
   font-size: 0.8rem;
-  transition: background-color 0.2s ease
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease
 }
 
 .view-details-link:visited {

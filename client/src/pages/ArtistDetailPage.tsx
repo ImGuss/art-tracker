@@ -66,6 +66,7 @@ const ArtistDetailPage = () => {
     <ArtworkCard
       key={artwork.id}
       artwork={artwork}
+      showArtist={false}
     />
   ))
 

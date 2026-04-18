@@ -6,16 +6,19 @@ import './ArtworkCard.css'
 
 interface ArtworkCardProps {
   artwork: Artwork;
+  showArtist: boolean;
 }
 
-const ArtworkCard = ({ artwork }: ArtworkCardProps) => {
+const ArtworkCard = ({ artwork, showArtist }: ArtworkCardProps) => {
 
   const {
     id,
     title,
-    image_url,
+    artist_id,
+    name,
     year_created,
-    medium
+    medium,
+    image_url
   } = artwork
 
   return (
@@ -26,6 +29,18 @@ const ArtworkCard = ({ artwork }: ArtworkCardProps) => {
         alt={title}
       />
       <p className="artwork-title">{title}</p>
+      {showArtist &&
+        (
+          name ?
+          <Link 
+            className="artwork-artist"
+            to={`/artists/${artist_id}`}
+          >
+            {name}
+          </Link> :
+          <p className="artwork-artist">Unknown</p>
+        )
+      }
       <p className="artwork-year">{year_created ?? 'Year unknown'}</p>
       <p className="artwork-medium">{medium ?? 'Medium unknown'}</p>
       <Link
