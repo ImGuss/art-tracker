@@ -20,7 +20,7 @@
   padding: 0.5rem;
   border-radius: var(--btn-border-radius);
   font-size: 0.8rem;
-  transition: background-color 0.2s ease
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease
 }
 
 .add-artist-link:visited {
@@ -38,23 +38,4 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 2rem;
-}
-
-.view-more-btn {
-  background-color: var(--color-gold);
-  color: var(--color-text-white);
-  border: none;
-  border-radius: var(--btn-border-radius);
-  align-self: center;
-  padding: 0.5rem;
-  transition: transform 0.2s ease;
-}
-
-.view-more-btn:hover {
-  transform: translateY(-5px);
-}
-
-.disabled-btn {
-  cursor: not-allowed;
-  opacity: 0.8;
 }

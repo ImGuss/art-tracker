@@ -5,6 +5,7 @@
   font-size: 0.8rem;
   gap: 0.5rem;
   color: var(--color-text-grey);
+  transition: opacity 0.2s ease;
 }
 
 .footer > a {
@@ -12,5 +13,5 @@
 }
 
 .footer > a:hover {
-  color: var(--color-text-grey);
+  opacity: 0.8;
 }
