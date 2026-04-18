@@ -1,0 +1,88 @@
+.artist-detail-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.artist-detail-title-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-bottom: 1.5px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  align-items: start;
+}
+
+.back-to-artists-link {
+  color: var(--color-gold);
+  font-size: 0.8rem;
+  transition: opacity 0.2s ease;
+}
+
+.back-to-artists-link:visited {
+  color: var(--color-gold);
+}
+
+.back-to-artists-link:hover{
+  opacity: 0.8;
+}
+
+.artist-details {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--color-text-grey);
+}
+
+.about-artist {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .about-artist {
+    grid-template-columns: 1fr;
+  }
+}
+
+.artist-image-wrap > img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+}
+
+.image-caption {
+  font-size: 0.8rem;
+  color: var(--color-text-grey);
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+.artist-bio h2 {
+  margin-bottom: 1rem;
+}
+
+.artist-bio p {
+  margin-bottom: 1rem;
+}
+
+.artworks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.artworks-title {
+  border-bottom: 1.5px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+.artwork-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem;
+}

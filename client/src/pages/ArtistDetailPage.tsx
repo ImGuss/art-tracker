@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
+import { ArrowLeft } from 'lucide-react'
 
-import { useParams } from 'react-router'
+import { Link, useParams } from 'react-router'
 
 import type { ArtistDetail } from '../types/artist'
-import type { Artwork } from '../types/artwork'
 
 import { getArtistById } from '../api/artistApi'
 
@@ -15,29 +15,23 @@ import ArtworkCard from '../components/ArtworkCard'
 const ArtistDetailPage = () => {
   const { id } = useParams<{ id: string }>()
 
-  if (!id) {
-    return <p className="error">Artist ID is required</p>
-  }
-
-  const numericId = parseInt(id, 10)
-
-  if (isNaN(numericId)) {
-    return <p className="error">Invalid artist ID</p>
-  }
-
+  // state values
   const [artist, setArtist] = useState<ArtistDetail | null>(null)
-  const [artworks, setArtworks] = useState<Artwork[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
+  const numericId = id ? parseInt(id, 10) : NaN
+
   useEffect(() => {
+    if (isNaN(numericId)) {
+      return
+    }
     const fetchData = async () => {
       try {
         setIsLoading(true)
         const res = await getArtistById(numericId)
 
         setArtist(res)
-        setArtworks(res.artworks)
       } catch (err) {
         setError('Failed to fetch artist details')
       } finally {
@@ -48,12 +42,13 @@ const ArtistDetailPage = () => {
     fetchData()
   }, [id])
 
-  const artworkElements = artworks.map(artwork => (
-    <ArtworkCard
-      key={artwork.id}
-      artwork={artwork}
-    />
-  ))
+  if (!id) {
+    return <p className="error">Artist ID is required</p>
+  }
+
+  if (isNaN(numericId)) {
+    return <p className="error">Invalid artist ID</p>
+  }
 
   if (error) {
     return <p className="error">{error}</p>
@@ -63,34 +58,53 @@ const ArtistDetailPage = () => {
     return <p className="loading">Loading...</p>
   }
 
+  if (!artist) {
+    return <p className="error">Artist not found</p>
+  }
+
+  const artworkElements = artist.artworks.map(artwork => (
+    <ArtworkCard
+      key={artwork.id}
+      artwork={artwork}
+    />
+  ))
+
   return (
     <section className="artist-detail-page">
-      <div className="artist-title-container">
-        <h1 className="artist-name">{artist?.name}</h1>
-        {
-          artist?.birth_year ?
-          <div className="artist-detail-dates">
-            <span className="artist-birth-year">{artist?.birth_year}</span>
-            <span> - </span>
-            <span className="artist-death-year">{artist?.death_year}</span>
-          </div> :
-          <div className="artist-detail-dates">Unknown</div>
-        }
-        <div className="birth-place">{artist?.birth_place}</div>
+      <div className="artist-detail-title-container">
+        <Link
+          className="back-to-artists-link"
+          to="/artists"
+        >
+          <ArrowLeft size="0.8rem" /> Back to Artists
+        </Link>
+        <h1 className="artist-name">{artist.name}</h1>
+        <div className="artist-details">
+          {
+            artist.birth_year ?
+            <div className="artist-detail-dates">
+              <span className="artist-birth-year">{artist.birth_year}</span>
+              <span> - </span>
+              <span className="artist-death-year">{artist.death_year}</span>
+            </div> :
+            <div className="artist-detail-dates">Unknown</div>
+          }
+          <div className="birth-place">{artist.birth_place}</div>
+        </div>
       </div>
 
       <div className="about-artist">
         <div className="artist-image-wrap">
           <img
-            src={artist?.artworks[0]?.image_url ?? undefined}
-            alt={`Example artwork by ${artist?.name}`}
+            src={artist.artworks[0].image_url ?? undefined}
+            alt={`Example artwork by ${artist.name}`}
           />
           <p className="image-caption">
-            {`${artist?.artworks[0]?.title}, ${artist?.artworks[0]?.year_created ?? 'Year unknown'}`}
+            {`${artist.artworks[0].title}, ${artist.artworks[0].year_created ?? 'Year unknown'}`}
           </p>
         </div>
         <div className="artist-bio">
-          <h2>About the Arist</h2>
+          <h2>About the Artist</h2>
           <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum magnam ullam facilis excepturi saepe mollitia ratione, optio veritatis rem accusantium eligendi? Illo maiores commodi nesciunt esse cumque doloremque beatae numquam!</p>
 
           <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus porro similique deleniti labore aspernatur tenetur. Laborum, dolorem reprehenderit, quod nulla cum et eum neque dicta omnis, voluptates nesciunt iusto vitae!</p>
