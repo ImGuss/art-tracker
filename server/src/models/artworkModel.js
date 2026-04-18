@@ -1,7 +1,17 @@
 import pool from '../db/db.js'
 
-export async function getAllArtworks() {
-  const res = await pool.query(`SELECT * FROM artworks`)
+export async function getAllArtworks(limit, offset) {
+  const res = await pool.query(
+    `
+      SELECT
+        aw.*,
+        a.name
+      FROM artworks aw
+      LEFT JOIN artists a ON aw.artist_id = a.id
+      ORDER BY a.id, aw.id
+      LIMIT $1 OFFSET $2
+    `, [limit, offset]
+  )
   return res.rows
 }
 

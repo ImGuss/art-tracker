@@ -3,8 +3,10 @@ import { AppError } from '../utils/AppError.js'
 
 export async function getArtworks(req, res, next) {
   try {
+    const limit = parseInt(req.query.limit, 10) || 20
+    const offset = parseInt(req.query.offset, 10) || 0
 
-    const artworks = await getAllArtworks()
+    const artworks = await getAllArtworks(limit, offset)
 
     res.json(artworks)
 
