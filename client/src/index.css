@@ -69,3 +69,22 @@ button {
 .loading {
   text-align: center;
 }
+
+.view-more-btn {
+  background-color: var(--color-gold);
+  color: var(--color-text-white);
+  border: none;
+  border-radius: var(--btn-border-radius);
+  align-self: center;
+  padding: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.view-more-btn:hover {
+  transform: translateY(-5px);
+}
+
+.disabled-btn {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
