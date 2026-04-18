@@ -26,3 +26,35 @@
   font-size: 0.9rem;
   font-family: var(--header-font);
 }
+
+.artwork-year, .artwork-medium {
+  color: var(--color-text-grey);
+  font-size: 0.8rem;
+}
+
+.artwork-medium {
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.view-details-link {
+  color: var(--color-text-white);
+  background-color: var(--color-gold);
+  border: 1px solid transparent;
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: var(--btn-border-radius);
+  font-size: 0.8rem;
+  transition: background-color 0.2s ease
+}
+
+.view-details-link:visited {
+  color: var(--color-text-white);
+}
+
+.view-details-link:hover {
+  background-color: transparent;
+  color: var(--color-gold);
+  border: 1px solid var(--color-gold);
+  transition: background-color 0.2s ease;
+}
