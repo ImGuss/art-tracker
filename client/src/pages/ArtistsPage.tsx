@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { NavLink } from 'react-router'
+import { Link } from 'react-router'
 
 import type { Artist } from '../types/artist'
 
@@ -7,7 +7,7 @@ import { getArtists } from '../api/artistApi'
 
 import './ArtistPage.css'
 
-//components
+// components
 import ArtistCard from '../components/ArtistCard'
 
 const ArtistsPage = () => {
@@ -23,26 +23,25 @@ const ArtistsPage = () => {
   const limit = 20
 
   useEffect(() => {
-      const fetchData = async () => {
-        try {
-          setIsLoading(true)
-          const res = await getArtists(limit, 0)
+    const fetchData = async () => {
+      try {
+        setIsLoading(true)
+        const res = await getArtists(limit, 0)
 
-          if (res.length < limit) {
-            setHasMore(false)
-          }
-    
-          setArtists(res)
-          setOffset(prevOffset => prevOffset + limit)
-        } catch (err) {
-          setError('Failed to load artists')
-        } finally {
-          setIsLoading(false)
+        if (res.length < limit) {
+          setHasMore(false)
         }
+  
+        setArtists(res)
+        setOffset(prevOffset => prevOffset + limit)
+      } catch (err) {
+        setError('Failed to load artists')
+      } finally {
+        setIsLoading(false)
       }
+    }
 
-      fetchData()
-
+    fetchData()
   }, [])
 
   const loadMore = async () => {
@@ -63,7 +62,13 @@ const ArtistsPage = () => {
     }
   }
 
-  const artistElements = artists.map(artist => (
+  if (error) {
+    return (
+      <p className="error">{error}</p>
+    )
+  }
+
+  const renderArtists = artists.map(artist => (
       <ArtistCard
         key={artist.id}
         artist={artist}
@@ -74,16 +79,16 @@ const ArtistsPage = () => {
     <section className="artist-page">
       <div className="artist-title-container">
         <h2 className="artist-title">Artists</h2>
-        <NavLink
+        <Link
           className="add-artist-link"
           to="/artists/add"
         >
           Add Artist
-        </NavLink>
+        </Link>
       </div>
 
       <div className="artist-list-container">
-        {artistElements}
+        {renderArtists}
       </div>
 
       {
@@ -91,12 +96,10 @@ const ArtistsPage = () => {
         <div className="loading">Loading...</div> : null
       }
 
-      { error && <p>{error}</p> }
-
       {
         hasMore ?
         <button
-          className={`view-more-btn ${isLoading && 'disabled-btn'}`}
+          className={`view-more-btn ${isLoading ? 'disabled-btn' : ''}`}
           disabled={isLoading}
           onClick={loadMore}
         >
