@@ -1,0 +1,40 @@
+.artwork-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.artwork-page-title-container {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1.5px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  align-items: center;
+}
+
+.add-artwork-link {
+  color: var(--color-text-white);
+  background-color: var(--color-gold);
+  border: 1px solid transparent;
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: var(--btn-border-radius);
+  font-size: 0.8rem;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease
+}
+
+.add-artwork-link:visited {
+  color: var(--color-text-white);
+}
+
+.add-artwork-link:hover {
+  background-color: transparent;
+  color: var(--color-gold);
+  border: 1px solid var(--color-gold);
+}
+
+.artwork-page-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem;
+}
