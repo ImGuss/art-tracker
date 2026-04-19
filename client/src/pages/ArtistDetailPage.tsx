@@ -106,11 +106,11 @@ const ArtistDetailPage = () => {
         </div>
         <div className="artist-bio">
           <h2>About the Artist</h2>
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum magnam ullam facilis excepturi saepe mollitia ratione, optio veritatis rem accusantium eligendi? Illo maiores commodi nesciunt esse cumque doloremque beatae numquam!</p>
-
-          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus porro similique deleniti labore aspernatur tenetur. Laborum, dolorem reprehenderit, quod nulla cum et eum neque dicta omnis, voluptates nesciunt iusto vitae!</p>
-
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab quaerat veniam eaque facere veritatis soluta, quod non dolorem ea cumque exercitationem eveniet vitae sapiente optio deleniti dolore rerum, earum ratione!</p>
+          {
+            artist.description ?
+            <p>{artist.description}</p> :
+            <p>Not much is known about {artist.name}.</p>
+          }
         </div>
       </div>
 
