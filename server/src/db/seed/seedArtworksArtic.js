@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import pool from './db.js'
+import pool from '../db.js'
 
 async function seedArtworks() {
   const maxArtworksPerArtist = 10
