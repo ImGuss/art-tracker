@@ -41,9 +41,38 @@
   gap: 2rem;
 }
 
+/* CARD */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  background-color: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 3px;
+  padding: 0.8rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.card-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.card-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+  font-family: var(--header-font);
+}
 
 
-/* buttons */
+/* BUTTONS */
 .gold-link-btn {
   color: var(--color-text-white);
   background-color: var(--color-gold);

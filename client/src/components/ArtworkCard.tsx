@@ -22,9 +22,9 @@ const ArtworkCard = ({ artwork, showArtist }: ArtworkCardProps) => {
   } = artwork
 
   return (
-    <article className="artwork-card">
+    <article className="card">
       <img
-        className="artwork-image"
+        className="card-image"
         src={image_url ?? undefined}
         alt={title}
       />
@@ -44,7 +44,7 @@ const ArtworkCard = ({ artwork, showArtist }: ArtworkCardProps) => {
       <p className="artwork-year">{year_created ?? 'Year unknown'}</p>
       <p className="artwork-medium">{medium ?? 'Medium unknown'}</p>
       <Link
-        className="view-details-link"
+        className="gold-link-btn"
         to={`/artworks/${id}`}
       >
         View Details

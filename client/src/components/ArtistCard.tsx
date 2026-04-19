@@ -19,13 +19,13 @@ const ArtistCard = ({ artist }: ArtistCardProps) => {
   } = artist
 
   return (
-    <article className="artist-card">
+    <article className="card">
       <img
-        className="example-artwork"
+        className="card-image"
         src={example_artwork_url ?? undefined}
         alt={`Example painting by ${name}`}
       />
-      <p className="artist-card-name">{name}</p>
+      <p className="card-name">{name}</p>
       { birth_year ?
         <div className="artist-card-dates">
           <span>{birth_year}</span>
@@ -35,7 +35,7 @@ const ArtistCard = ({ artist }: ArtistCardProps) => {
         <div className="artist-card-dates">Unknown</div>
       }
       <NavLink
-        className="view-artworks-link"
+        className="gold-link-btn"
         to={`/artists/${id}`}
       >
         View Artworks
