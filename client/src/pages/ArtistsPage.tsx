@@ -76,18 +76,18 @@ const ArtistsPage = () => {
   ))
 
   return (
-    <section className="artist-page">
-      <div className="artist-title-container">
-        <h2 className="artist-title">Artists</h2>
+    <section className="page">
+      <div className="page-header">
+        <h2 className="page-title">Artists</h2>
         <Link
-          className="add-artist-link"
+          className="gold-link-btn"
           to="/artists/add"
         >
           Add Artist
         </Link>
       </div>
 
-      <div className="artist-list-container">
+      <div className="page-grid">
         {renderArtists}
       </div>
 

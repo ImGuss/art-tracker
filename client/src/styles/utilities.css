@@ -1,0 +1,85 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1.5px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  align-items: center;
+}
+
+.detail-page-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-bottom: 1.5px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  align-items: start;
+}
+
+.back-link {
+  color: var(--color-gold);
+  font-size: 0.8rem;
+  transition: opacity 0.2s ease;
+}
+
+.back-link:visited {
+  color: var(--color-gold);
+}
+
+.back-link:hover {
+  opacity: 0.8;
+}
+
+.page-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem;
+}
+
+
+
+/* buttons */
+.gold-link-btn {
+  color: var(--color-text-white);
+  background-color: var(--color-gold);
+  border: 1px solid transparent;
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: var(--btn-border-radius);
+  font-size: 0.8rem;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease
+}
+
+.gold-link-btn:visited {
+  color: var(--color-text-white);
+}
+
+.gold-link-btn:hover {
+  background-color: transparent;
+  color: var(--color-gold);
+  border: 1px solid var(--color-gold);
+}
+
+.view-more-btn {
+  background-color: var(--color-gold);
+  color: var(--color-text-white);
+  border: none;
+  border-radius: var(--btn-border-radius);
+  align-self: center;
+  padding: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.view-more-btn:hover {
+  transform: translateY(-3px);
+}
+
+.disabled-btn {
+  cursor: not-allowed;
+  opacity: 0.8;
+}

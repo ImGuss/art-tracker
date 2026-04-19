@@ -79,18 +79,18 @@ const ArtworksPage = () => {
   }
 
   return (
-    <section className="artwork-page">
-      <div className="artwork-page-title-container">
-        <h2 className="artwork-page-title">Artworks</h2>
+    <section className="page">
+      <div className="page-header">
+        <h2 className="page-title">Artworks</h2>
         <Link
-          className="add-artwork-link"
+          className="gold-link-btn"
           to="/artworks/add"
         >
           Add Artwork
         </Link>
       </div>
 
-      <div className="artwork-page-grid">
+      <div className="page-grid">
         {renderArtworks}
       </div>
 

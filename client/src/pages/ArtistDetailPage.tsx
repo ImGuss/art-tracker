@@ -71,10 +71,10 @@ const ArtistDetailPage = () => {
   ))
 
   return (
-    <section className="artist-detail-page">
-      <div className="artist-detail-title-container">
+    <section className="page">
+      <div className="detail-page-header">
         <Link
-          className="back-to-artists-link"
+          className="back-link"
           to="/artists"
         >
           <ArrowLeft size="0.8rem" /> Back to Artists
@@ -114,9 +114,9 @@ const ArtistDetailPage = () => {
         </div>
       </div>
 
-      <div className="artworks-container">
+      <div className="page">
         <h2 className="artworks-title">Artworks</h2>
-        <div className="artwork-grid">
+        <div className="page-grid">
           {artworkElements}
         </div>
       </div>
