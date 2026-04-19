@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router'
+import { Link } from 'react-router'
 
 import type { Artist } from '../types/artist'
 
@@ -34,12 +34,12 @@ const ArtistCard = ({ artist }: ArtistCardProps) => {
         </div> :
         <div className="artist-card-dates">Unknown</div>
       }
-      <NavLink
+      <Link
         className="gold-link-btn"
         to={`/artists/${id}`}
       >
         View Artworks
-      </NavLink>
+      </Link>
     </article>
   )
 }
