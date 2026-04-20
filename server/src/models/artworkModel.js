@@ -20,12 +20,14 @@ export async function getArtworkById(id) {
     `
       SELECT
         aw.*,
+        a.name,
         ARRAY_REMOVE(ARRAY_AGG(t.name), NULL) AS tags
       FROM artworks aw
       LEFT JOIN artwork_tags awt ON awt.artwork_id = aw.id
       LEFT JOIN tags t ON awt.tag_id = t.id
+      LEFT JOIN artists a ON aw.artist_id = a.id
       WHERE aw.id = $1
-      GROUP BY aw.id
+      GROUP BY aw.id, a.name
     `, [id]
   )
 
