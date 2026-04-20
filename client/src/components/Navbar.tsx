@@ -37,7 +37,7 @@ const Navbar = () => {
           user ?
           <div className="nav-profile-container">
             <p>Hello, {user.username}</p>
-            <button className="logout-btn" onClick={logout}>Logout</button>
+            <button className="gold-outline-btn" onClick={logout}>Logout</button>
           </div> :
           <div className="nav-profile-container">
             <NavLink to="/login"><span className="gold">Login</span></NavLink>

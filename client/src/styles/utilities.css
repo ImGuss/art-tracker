@@ -94,6 +94,24 @@
   border: 1px solid var(--color-gold);
 }
 
+.gold-outline-btn {
+  padding: 0.5rem 0.8rem;
+  background-color: transparent;
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold);
+  border-radius: var(--btn-border-radius);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.gold-outline-btn:visited {
+  color: var(--color-gold);
+}
+
+.gold-outline-btn:hover {
+  background-color: var(--color-gold);
+  color: var(--color-text-white);
+}
+
 .view-more-btn {
   background-color: var(--color-gold);
   color: var(--color-text-white);
