@@ -74,7 +74,7 @@ const ArtistDetailPage = () => {
     <section className="page">
       <div className="detail-page-header">
         <Link
-          className="back-link"
+          className="gold-link back-link"
           to="/artists"
         >
           <ArrowLeft size="0.8rem" /> Back to Artists

@@ -35,7 +35,7 @@ const ArtistCard = ({ artist }: ArtistCardProps) => {
         <div className="artist-card-dates">Unknown</div>
       }
       <Link
-        className="gold-link-btn"
+        className="gold-btn"
         to={`/artists/${id}`}
       >
         View Artworks

@@ -21,18 +21,21 @@
   align-items: start;
 }
 
-.back-link {
+.gold-link {
   color: var(--color-gold);
-  font-size: 0.8rem;
   transition: opacity 0.2s ease;
 }
 
-.back-link:visited {
+.gold-link:visited {
   color: var(--color-gold);
 }
 
-.back-link:hover {
+.gold-link:hover {
   opacity: 0.8;
+}
+
+.back-link {
+  font-size: 0.9rem;
 }
 
 .page-grid {
@@ -73,7 +76,7 @@
 
 
 /* BUTTONS */
-.gold-link-btn {
+.gold-btn {
   color: var(--color-text-white);
   background-color: var(--color-gold);
   border: 1px solid transparent;
@@ -84,11 +87,11 @@
   transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease
 }
 
-.gold-link-btn:visited {
+.gold-btn:visited {
   color: var(--color-text-white);
 }
 
-.gold-link-btn:hover {
+.gold-btn:hover {
   background-color: transparent;
   color: var(--color-gold);
   border: 1px solid var(--color-gold);

@@ -83,7 +83,7 @@ const ArtworksPage = () => {
       <div className="page-header">
         <h2 className="page-title">Artworks</h2>
         <Link
-          className="gold-link-btn"
+          className="gold-btn"
           to="/artworks/add"
         >
           Add Artwork

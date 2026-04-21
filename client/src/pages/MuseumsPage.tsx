@@ -60,7 +60,7 @@ const MuseumsPage = () => {
       <div className="page-header">
         <h2 className="page-title">Museums</h2>
         <Link
-          className="gold-link-btn"
+          className="gold-btn"
           to="/museums/add"
         >
           Add Museum

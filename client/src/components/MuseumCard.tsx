@@ -31,7 +31,7 @@ const MuseumCard = ({ museum }: MuseumProps) => {
       </div>
 
       <Link
-        className="gold-link-btn"
+        className="gold-btn"
         to={`/museums/${id}`}
       >
         View Details
