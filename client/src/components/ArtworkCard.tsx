@@ -15,7 +15,7 @@ const ArtworkCard = ({ artwork, showArtist }: ArtworkCardProps) => {
     id,
     title,
     artist_id,
-    name,
+    artist_name,
     year_created,
     medium,
     image_url
@@ -31,12 +31,12 @@ const ArtworkCard = ({ artwork, showArtist }: ArtworkCardProps) => {
       <p className="artwork-title">{title}</p>
       {showArtist &&
         (
-          name ?
+          artist_name ?
           <Link 
-            className="artwork-artist"
+            className="gold-link"
             to={`/artists/${artist_id}`}
           >
-            {name}
+            {artist_name}
           </Link> :
           <p className="artwork-artist">Unknown</p>
         )
@@ -44,7 +44,7 @@ const ArtworkCard = ({ artwork, showArtist }: ArtworkCardProps) => {
       <p className="artwork-year">{year_created ?? 'Year unknown'}</p>
       <p className="artwork-medium">{medium ?? 'Medium unknown'}</p>
       <Link
-        className="gold-link-btn"
+        className="gold-btn"
         to={`/artworks/${id}`}
       >
         View Details
