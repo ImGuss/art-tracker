@@ -9,19 +9,6 @@
   overflow: hidden;
 }
 
-.artwork-artist {
-  color: var(--color-gold);
-  transition: opacity 0.2s ease;
-}
-
-.artwork-artist:visited {
-  color: var(--color-gold);
-}
-
-.artwork-artist:hover {
-  opacity: 0.8;
-}
-
 .artwork-year, .artwork-medium {
   color: var(--color-text-grey);
   font-size: 0.8rem;
