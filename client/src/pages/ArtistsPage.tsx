@@ -80,7 +80,7 @@ const ArtistsPage = () => {
       <div className="page-header">
         <h2 className="page-title">Artists</h2>
         <Link
-          className="gold-link-btn"
+          className="gold-btn"
           to="/artists/add"
         >
           Add Artist
