@@ -5,8 +5,9 @@ import Layout from './components/Layout'
 
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
-import ArtistsPage from './pages/ArtistsPage'
 import ArtistDetailPage from './pages/ArtistDetailPage'
+import ArtistsPage from './pages/ArtistsPage'
+import ArtworkDetailPage from './pages/ArtworkDetailPage'
 import ArtworksPage from './pages/ArtworksPage'
 import MuseumsPage from './pages/MuseumsPage'
 import TagsPage from './pages/TagsPage'
@@ -26,6 +27,7 @@ function App() {
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/artists/:id' element={<ArtistDetailPage />} />
         <Route path='/artists' element={<ArtistsPage />} />
+        <Route path='/artworks/:id' element={<ArtworkDetailPage />} />
         <Route path='/artworks' element={<ArtworksPage />} />
         <Route path='/museums' element={<MuseumsPage />} />
         <Route path='/tags' element={<TagsPage />} />
