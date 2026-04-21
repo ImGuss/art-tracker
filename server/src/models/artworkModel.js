@@ -5,7 +5,7 @@ export async function getAllArtworks(limit, offset) {
     `
       SELECT
         aw.*,
-        a.name
+        a.name AS artist_name
       FROM artworks aw
       LEFT JOIN artists a ON aw.artist_id = a.id
       ORDER BY a.id, aw.id
@@ -20,7 +20,7 @@ export async function getArtworkById(id) {
     `
       SELECT
         aw.*,
-        a.name,
+        a.name AS artist_name,
         m.name AS museum_name,
         ARRAY_REMOVE(ARRAY_AGG(t.name), NULL) AS tags
       FROM artworks aw
