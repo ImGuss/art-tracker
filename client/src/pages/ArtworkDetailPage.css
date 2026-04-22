@@ -68,7 +68,6 @@
 
 .artwork-actions {
   display: flex;
-  grid-column: span 2;
   margin-top: 1.5rem;
   gap: 1rem;
 }

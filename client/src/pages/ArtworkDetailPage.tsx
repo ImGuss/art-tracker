@@ -38,7 +38,7 @@ const ArtworkDetailPage = () => {
     }
 
     fetchData()
-  }, [id])
+  }, [numericId])
 
   if (!id) {
     return <p className="error">Artwork ID is required</p>
@@ -101,7 +101,7 @@ const ArtworkDetailPage = () => {
                 <div className="meta-label">Artist</div>
                 <div className="meta-value">
                   {
-                    artwork.artist_name ?
+                    artwork.artist_id ?
                     <Link
                       className="gold-link"
                       to={`/artists/${artwork.artist_id}`}
@@ -113,12 +113,16 @@ const ArtworkDetailPage = () => {
                 </div>
                 <div className="meta-label">Museum</div>
                 <div className="meta-value">
-                  <Link
-                    className="gold-link"
-                    to={`/museums/${artwork.museum_id}`}
-                  >
-                    {artwork.museum_name}
-                  </Link>
+                  {
+                    artwork.museum_id ?
+                    <Link
+                      className="gold-link"
+                      to={`/museums/${artwork.museum_id}`}
+                    >
+                      {artwork.museum_name}
+                    </Link> :
+                    <p>Unknown</p>
+                  }
                 </div>
                 <div className="meta-label">Year</div>
                 <div className="meta-value">{artwork.year_created}</div>
@@ -126,19 +130,21 @@ const ArtworkDetailPage = () => {
                 <div className="meta-label">Medium</div>
                 <div className="meta-value">{artwork.medium}</div>
 
-              <div className="artwork-actions">
-                <button
-                  className="gold-btn"
-                >
-                  Add to Collection
-                </button>
-                <button
-                  className="gold-outline-btn"
-                >
-                  Log in a Visit
-                </button>
-              </div>
             </div>
+
+            <div className="artwork-actions">
+              <button
+                className="gold-btn"
+              >
+                Add to Collection
+              </button>
+              <button
+                className="gold-outline-btn"
+              >
+                Log in a Visit
+              </button>
+            </div>
+            
           </div>
         </div>
       </div>

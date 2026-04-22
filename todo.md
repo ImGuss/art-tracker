@@ -1,5 +1,3 @@
-artwork details
-  tags
 museum details
 
 visits
