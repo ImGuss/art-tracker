@@ -9,6 +9,7 @@ import ArtistDetailPage from './pages/ArtistDetailPage'
 import ArtistsPage from './pages/ArtistsPage'
 import ArtworkDetailPage from './pages/ArtworkDetailPage'
 import ArtworksPage from './pages/ArtworksPage'
+import MuseumDetailPage from './pages/MuseumDetailPage'
 import MuseumsPage from './pages/MuseumsPage'
 import TagsPage from './pages/TagsPage'
 import DashboardPage from './pages/DashboardPage'
@@ -29,6 +30,7 @@ function App() {
         <Route path='/artists' element={<ArtistsPage />} />
         <Route path='/artworks/:id' element={<ArtworkDetailPage />} />
         <Route path='/artworks' element={<ArtworksPage />} />
+        <Route path='/museums/:id' element={<MuseumDetailPage />} />
         <Route path='/museums' element={<MuseumsPage />} />
         <Route path='/tags' element={<TagsPage />} />
         {/* PROTECTED ROUTES */}
