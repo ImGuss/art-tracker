@@ -14,8 +14,11 @@ export async function getMuseumById(id) {
         json_build_object(
           'id', aw.id,
           'title', aw.title,
-          'image_url', aw.image_url,
-          'artist_name', a.name
+          'artist_id', a.id,
+          'artist_name', a.name,
+          'year_created', aw.year_created,
+          'medium', aw.medium,
+          'image_url', aw.image_url
         )) FILTER (WHERE aw.id IS NOT NULL), '[]') AS artworks
       FROM museums m
       LEFT JOIN artworks aw ON aw.museum_id = m.id
