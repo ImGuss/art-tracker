@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Check } from 'lucide-react'
 
 import { Link, useParams } from 'react-router'
 
@@ -85,7 +85,50 @@ const MuseumDetailPage = () => {
       >
         <ArrowLeft size="0.8rem" /> Back to Museums
       </Link>
-      {renderArtworks}
+
+      <div className="detail-columns">
+        <div className="detail-left-column">
+          <div className="detail-image-wrap-landscape">
+            <img
+              src={museum.image_url ?? undefined}
+              alt={museum.name}
+            />
+          </div>
+        </div>
+
+        <div className="museum-info">
+          <h1 className="museum-detail-title">{museum.name}</h1>
+          <p className="detail-subtitle">
+            <span>{museum.city}, {museum.country}</span>
+          </p>
+
+          <div className="detail-meta-container">
+            <div className="meta-label">City</div>
+            <div className="meta-value">{museum.city}</div>
+            <div className="meta-label">Country</div>
+            <div className="meta-value">{museum.country}</div>
+          </div>
+
+          <div className="museum-detail-visit-badge">
+            {/* temporary static number until i add visits logic */}
+            <Check size="0.8rem" /> Visited 3 times
+          </div>
+
+          <div className="detail-actions">
+            <button className="gold-btn">Log a Visit</button>
+            <button className="gold-outline-btn">View All Visits</button>
+          </div>
+
+        </div>
+      </div>
+          {/* Need to add visits once that's complete*/}
+
+          <div className="page">
+            <h2 className="section-title">Artworks</h2>
+            <div className="page-grid">
+              {renderArtworks}
+            </div>
+          </div>
     </section>
   )
 }

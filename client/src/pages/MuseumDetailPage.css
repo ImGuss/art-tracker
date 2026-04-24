@@ -1,0 +1,10 @@
+.museum-detail-visit-badge {
+  background-color: var(--color-gold);
+  color: var(--color-text-white);
+  border-radius: 3px;
+
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  display: inline-block;
+  margin-top: 1.5rem;
+}
