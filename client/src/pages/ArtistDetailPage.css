@@ -40,8 +40,3 @@
 .artist-bio p {
   margin-bottom: 1rem;
 }
-
-.artworks-title {
-  border-bottom: 1.5px solid var(--border-color);
-  padding-bottom: 0.5rem;
-}

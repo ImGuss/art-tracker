@@ -75,9 +75,9 @@ const ArtworkDetailPage = () => {
         <ArrowLeft size="0.8rem" /> Back to Artworks
       </Link>
 
-      <div className="artwork-details">
-        <div className="artwork-left-column">
-          <div className="artwork-image-wrap">
+      <div className="detail-columns">
+        <div className="detail-left-column">
+          <div className="detail-image-wrap-portrait">
             <img
               src={artwork.image_url ?? undefined}
               alt={artwork.title}
@@ -91,13 +91,13 @@ const ArtworkDetailPage = () => {
         <div className="artwork-right-column">
           <div className="artwork-detail-info">
             <h1 className="artwork-detail-title">{artwork.title}</h1>
-            <p className="artwork-detail-subtitle">
+            <p className="detail-subtitle">
               <span>{artwork.year_created}</span>
               <Dot size="0.8rem" />
               <span>{artwork.medium}</span>
             </p>
 
-            <div className="artwork-meta-container">
+            <div className="detail-meta-container">
                 <div className="meta-label">Artist</div>
                 <div className="meta-value">
                   {
@@ -132,7 +132,7 @@ const ArtworkDetailPage = () => {
 
             </div>
 
-            <div className="artwork-actions">
+            <div className="detail-actions">
               <button
                 className="gold-btn"
               >
@@ -144,7 +144,7 @@ const ArtworkDetailPage = () => {
                 Log in a Visit
               </button>
             </div>
-            
+
           </div>
         </div>
       </div>

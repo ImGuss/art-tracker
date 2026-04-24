@@ -115,7 +115,7 @@ const ArtistDetailPage = () => {
       </div>
 
       <div className="page">
-        <h2 className="artworks-title">Artworks</h2>
+        <h2 className="section-title">Artworks</h2>
         <div className="page-grid">
           {artworkElements}
         </div>
