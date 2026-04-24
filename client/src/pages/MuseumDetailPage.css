@@ -1,10 +1,21 @@
 .museum-detail-visit-badge {
+  display: inline-flex;
+  align-items: center;
   background-color: var(--color-gold);
   color: var(--color-text-white);
   border-radius: 3px;
 
   padding: 0.5rem;
   font-size: 0.8rem;
-  display: inline-block;
   margin-top: 1.5rem;
+}
+
+.museum-detail-visit-badge span {
+  margin-left: 0.25rem;
+}
+
+.no-content {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--color-text-grey);
 }

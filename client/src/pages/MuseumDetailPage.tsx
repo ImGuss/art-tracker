@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { ArrowLeft, Check } from 'lucide-react'
-
 import { Link, useParams } from 'react-router'
+
+import { useAuth } from '../hooks/useAuth'
 
 import type { MuseumDetail } from '../types/museum'
 
@@ -19,6 +20,8 @@ const MuseumDetailPage = () => {
   const [museum, setMuseum] = useState<MuseumDetail | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  const { user } = useAuth()
 
   const numericId = id ? parseInt(id, 10) : NaN
 
@@ -107,28 +110,37 @@ const MuseumDetailPage = () => {
             <div className="meta-value">{museum.city}</div>
             <div className="meta-label">Country</div>
             <div className="meta-value">{museum.country}</div>
+            <div className="meta-label">Artworks</div>
+            <div className="meta-value">{museum.artworks?.length}</div>
           </div>
 
-          <div className="museum-detail-visit-badge">
-            {/* temporary static number until i add visits logic */}
-            <Check size="0.8rem" /> Visited 3 times
-          </div>
-
-          <div className="detail-actions">
-            <button className="gold-btn">Log a Visit</button>
-            <button className="gold-outline-btn">View All Visits</button>
-          </div>
+          {
+            user ?
+            <div className="museum-detail-visit-badge">
+              {/* temporary static number until i add visits logic */}
+              <Check size="0.8rem" /> <span>Visited 3 times</span>
+            </div> : null
+          }
+          { 
+            user ?
+            <div className="detail-actions">
+              <button className="gold-btn">Log a Visit</button>
+              <button className="gold-outline-btn">View All Visits</button>
+            </div> : null
+          }
 
         </div>
       </div>
           {/* Need to add visits once that's complete*/}
 
-          <div className="page">
-            <h2 className="section-title">Artworks</h2>
-            <div className="page-grid">
-              {renderArtworks}
-            </div>
-          </div>
+      <h2 className="section-title">Artworks</h2>
+      <div className="page-grid">
+        {
+          renderArtworks.length > 0 ?
+          renderArtworks :
+          <p className="no-content">No artworks to show</p>
+        }
+      </div>
     </section>
   )
 }
