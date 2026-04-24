@@ -38,49 +38,57 @@ const LoginPage = () => {
   }
 
   return (
-    <section className="login-form">
-      <form onSubmit={handleSubmit} aria-label="Login">
-        <label htmlFor="login-email">Email</label>
-        <input
-          type="email"
-          id="login-email"
-          name="email"
-          placeholder="e.g. john@doe.com"
-          onChange={(e) => setEmail(e.currentTarget.value)}
-          required
-          autoComplete="email"
-        />
+    <section className="auth-page">
+      <div className="auth-card">
+        <h1>Welcome back</h1>
+        <p className="auth-card-subtitle">Sign in to your dashboard</p>
+        <form className="auth-form" onSubmit={handleSubmit} aria-label="Login">
+          <label htmlFor="login-email">Email</label>
+          <input
+            type="email"
+            id="login-email"
+            name="email"
+            placeholder="e.g. john@doe.com"
+            onChange={(e) => setEmail(e.currentTarget.value)}
+            required
+            autoComplete="email"
+          />
 
-        <label htmlFor="login-password">Password</label>
-        <input
-          type="password"
-          id="login-password"
-          name="password"
-          onChange={(e) => setPassword(e.currentTarget.value)}
-          required
-          autoComplete="current-password"
-        />
+          <label htmlFor="login-password">Password</label>
+          <input
+            type="password"
+            id="login-password"
+            name="password"
+            placeholder="••••••••"
+            onChange={(e) => setPassword(e.currentTarget.value)}
+            required
+            autoComplete="current-password"
+          />
 
-        <button
-          type="submit"
-          aria-busy={isSubmitting}
-          disabled={isSubmitting}
-        >
-          Log In
-        </button>
-      </form>
+          {
+            error ?
+            <p
+              className="form-error"
+              role="alert"
+            >
+              {error}
+            </p> : null
+          }
 
-      {
-        error ?
-        <p
-          className="form-error"
-          role="alert"
-        >
-          {error}
-        </p> : null
-      }
-      
-      <Link to="/register">Register</Link>
+          <button
+          className="gold-btn"
+            type="submit"
+            aria-busy={isSubmitting}
+            disabled={isSubmitting}
+          >
+            Log In
+          </button>
+        </form>
+        
+        <p className="auth-switch">
+          Don't have an account? <Link className="gold-link" to="/register">Register</Link>
+        </p>
+      </div>
     </section>
   )
 }
