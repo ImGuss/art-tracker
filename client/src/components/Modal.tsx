@@ -8,11 +8,12 @@ import './Modal.css'
 interface ModalProps {
   isOpen: boolean;
   onClose(): void;
+  title: string;
   children: React.ReactNode;
 }
 
 const Modal = (props: ModalProps) => {
-  const { isOpen, onClose, children } = props
+  const { isOpen, onClose, title, children } = props
 
   const dialogRef = useRef<HTMLDialogElement | null>(null)
 
@@ -51,15 +52,20 @@ const Modal = (props: ModalProps) => {
       onClick={clickOut}
       ref={dialogRef}
     >
-      <button
-        className="modal-x-btn"
-        onClick={onClose}
-      >
-        <X size="0.9rem" />
-      </button>
-      Modal Component
-      <div className="modal-children">
-        {children}
+      <div className="modal-container">
+        <div className="modal-header">
+          <h1>{title}</h1>
+          <button
+            className="modal-x-btn"
+            onClick={onClose}
+          >
+            <X className="gold-link" />
+         </button>
+        </div>
+        
+        <div className="modal-children">
+          {children}
+        </div>
       </div>
     </dialog>
   )

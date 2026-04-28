@@ -8,6 +8,7 @@ import './ArtistPage.css'
 
 // components
 import ArtistCard from '../components/ArtistCard'
+import AddArtistForm from '../components/AddArtistForm'
 import Modal from '../components/Modal'
 
 const ArtistsPage = () => {
@@ -81,8 +82,9 @@ const ArtistsPage = () => {
     <Modal
       isOpen={isOpen}
       onClose={() => {setIsOpen(false)}}
+      title="Add Artist"
     >
-      Inside Modal
+      <AddArtistForm />
     </Modal>
 
       <div className="page-header">

@@ -1,5 +1,48 @@
+.modal {
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  background-color: var(--bg);
+}
+
+.modal-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-content: start;
+  border-bottom: 1.5px solid var(--border-color);
+  padding-bottom: 0.25rem;
+}
+
 .modal-x-btn {
   background-color: transparent;
   border: none;
   color: var(--color-gold);
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-form label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  margin-bottom: 0.4rem;
+}
+
+.modal-form input {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+}
+
+.modal-dual-input {
+  display: flex;
 }
