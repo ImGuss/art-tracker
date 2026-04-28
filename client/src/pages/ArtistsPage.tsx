@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router'
 
 import type { Artist } from '../types/artist'
 
@@ -9,6 +8,7 @@ import './ArtistPage.css'
 
 // components
 import ArtistCard from '../components/ArtistCard'
+import Modal from '../components/Modal'
 
 const ArtistsPage = () => {
 
@@ -17,8 +17,8 @@ const ArtistsPage = () => {
   const [offset, setOffset] = useState(0)
   const [hasMore, setHasMore] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
-  // const [loaded, setLoaded] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [isOpen, setIsOpen] = useState(false)
 
   const limit = 20
 
@@ -77,14 +77,22 @@ const ArtistsPage = () => {
 
   return (
     <section className="page">
+
+    <Modal
+      isOpen={isOpen}
+      onClose={() => {setIsOpen(false)}}
+    >
+      Inside Modal
+    </Modal>
+
       <div className="page-header">
         <h2 className="page-title">Artists</h2>
-        <Link
+        <button
           className="gold-btn"
-          to="/artists/add"
+          onClick={() => {setIsOpen(true)}}
         >
           Add Artist
-        </Link>
+        </button>
       </div>
 
       <div className="page-grid">
