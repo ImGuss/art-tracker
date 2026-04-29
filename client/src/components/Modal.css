@@ -3,6 +3,7 @@
   border-radius: 3px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   background-color: var(--bg);
+  padding: 0;
 }
 
 .modal-container {
@@ -13,9 +14,12 @@
 .modal-header {
   display: flex;
   justify-content: space-between;
-  align-content: start;
   border-bottom: 1.5px solid var(--border-color);
-  padding-bottom: 0.25rem;
+  padding: 1rem;
+}
+
+.modal-header h1 {
+  font-size: 1.5rem;
 }
 
 .modal-x-btn {
@@ -27,6 +31,7 @@
 .modal-form {
   display: flex;
   flex-direction: column;
+  padding: 1rem;
 }
 
 .modal-form label {
@@ -44,5 +49,35 @@
 }
 
 .modal-dual-input {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "blabel dlabel"
+    "binput dinput"
+  ;
+}
+
+.modal-dual-input > *:nth-child(1) {
+  grid-area: blabel;
+}
+
+.modal-dual-input > *:nth-child(2) {
+  grid-area: binput;
+}
+
+.modal-dual-input > *:nth-child(3) {
+  grid-area: dlabel;
+  margin-left: 0.5rem;
+}
+
+.modal-dual-input > *:nth-child(4) {
+  grid-area: dinput;
+  margin-left: 0.5rem;
+}
+
+.modal-btn-container {
   display: flex;
+  justify-content: end;
+  gap: 0.5rem;
+  margin-top: 1rem;
 }

@@ -9,6 +9,8 @@ import './ArtworksPage.css'
 
 // components
 import ArtworkCard from '../components/ArtworkCard'
+import AddArtworkForm from '../components/AddArtworkForm'
+import Modal from '../components/Modal'
 
 const ArtworksPage = () => {
 
@@ -18,6 +20,7 @@ const ArtworksPage = () => {
   const [hasMore, setHasMore] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [isOpen, setIsOpen] = useState(false)
 
   const limit = 20
 
@@ -80,14 +83,23 @@ const ArtworksPage = () => {
 
   return (
     <section className="page">
+
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {setIsOpen(false)}}
+        title="Add Artwork"
+      >
+        <AddArtworkForm />
+      </Modal>
+
       <div className="page-header">
         <h2 className="page-title">Artworks</h2>
-        <Link
+        <button
           className="gold-btn"
-          to="/artworks/add"
+          onClick={() => setIsOpen(true)}
         >
           Add Artwork
-        </Link>
+        </button>
       </div>
 
       <div className="page-grid">
