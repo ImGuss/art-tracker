@@ -7,8 +7,9 @@ export async function getArtists(req, res, next) {
 
     const limit = parseInt(req.query.limit, 10) || 20
     const offset = parseInt(req.query.offset, 10) || 0
+    const searchTerm = req.query.q
 
-    const artists = await getAllArtists(limit, offset)
+    const artists = await getAllArtists(limit, offset, searchTerm)
   
     res.json(artists)
     

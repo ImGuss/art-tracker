@@ -2,7 +2,18 @@ import pool from '../db/db.js'
 
 import { AppError } from '../utils/AppError.js'
 
-export async function getAllArtists(limit, offset) {
+export async function getAllArtists(limit, offset, searchTerm) {
+
+  let filter = ``
+  let valuesArray
+
+  if (searchTerm) {
+    filter = `WHERE a.name ILIKE $3`
+    valuesArray = [limit, offset, `%${searchTerm}%`]
+  } else {
+    valuesArray = [limit, offset]
+  }
+
   const res = await pool.query(
     `
       SELECT DISTINCT ON (a.id)
@@ -10,9 +21,10 @@ export async function getAllArtists(limit, offset) {
         aw.image_url AS example_artwork_url
       FROM artists a
       LEFT JOIN artworks aw ON aw.artist_id = a.id
+      ${filter}
       ORDER BY a.id, aw.id ASC
       LIMIT $1 OFFSET $2
-    `, [limit, offset]
+    `, valuesArray
   )
 
   return res.rows
