@@ -27,7 +27,7 @@ const ArtistsPage = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true)
-        const res = await getArtists(limit, 0)
+        const res = await getArtists(limit, 0, undefined)
 
         if (res.length < limit) {
           setHasMore(false)
@@ -48,7 +48,7 @@ const ArtistsPage = () => {
   const loadMore = async () => {
     try {
       setIsLoading(true)
-      const res = await getArtists(limit, offset)
+      const res = await getArtists(limit, offset, undefined)
 
       if (res.length < limit) {
         setHasMore(false)
