@@ -81,3 +81,18 @@
   gap: 0.5rem;
   margin-top: 1rem;
 }
+
+.artwork-form-search-artist {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.artwork-form-search-artist input {
+  margin-bottom: none;
+}
+
+.artwork-form-search-artist li {
+  background-color: var(--input-bg-color);
+  list-style: none;
+}
