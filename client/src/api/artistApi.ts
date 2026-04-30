@@ -1,9 +1,16 @@
 import axiosInstance from "./axiosInstance";
 
-export async function getArtists(limit: number, offset: number) {
-  const res = await axiosInstance.get(
-    `/artists?limit=${limit}&offset=${offset}`
-  )
+export async function getArtists(limit: number, offset: number, q: string | undefined) {
+  const params = new URLSearchParams({
+    limit: String(limit),
+    offset: String(offset)
+  })
+
+  if (q) {
+    params.append('q', q)
+  }
+
+  const res = await axiosInstance.get(`/artists?${params}`)
 
   return res.data
 }
