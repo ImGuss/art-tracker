@@ -4,6 +4,8 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   background-color: var(--bg);
   padding: 0;
+  width: 90%;
+  max-width: 600px;
 }
 
 .modal-container {
@@ -41,7 +43,7 @@
   margin-bottom: 0.4rem;
 }
 
-.modal-form input {
+.modal-form input, .modal-form select {
   padding: 0.5rem;
   margin-bottom: 1rem;
   border: 1px solid var(--border-color);
@@ -92,7 +94,33 @@
   margin-bottom: none;
 }
 
+.artwork-form-search-artist ul {
+  border: 1px solid var(--color-gold);
+  border-radius: 3px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+}
+
 .artwork-form-search-artist li {
   background-color: var(--input-bg-color);
   list-style: none;
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  border-radius: 3px;
+}
+
+.artist-list-item-year {
+  font-size: 0.8rem;
+  color: var(--color-text-grey);
+}
+
+.artwork-form-search-artist li:hover {
+  background-color: var(--bg);
+  cursor: pointer;
 }
