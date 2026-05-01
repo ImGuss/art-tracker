@@ -11,6 +11,7 @@
   --card-bg: #F2EDE7;
   --bg: #F7F1EA;
   --border-color: #D5D1Ca;
+  --input-bg-color: #FCF9F6;
 
   /* fonts */
   --header-font: 'Playfair Display', Georgia, Galasio;
@@ -70,4 +71,17 @@ button {
 
 .loading {
   text-align: center;
+}
+
+input, textarea, select {
+  background-color: var(--input-bg-color);
+}
+
+textarea {
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: 1px solid var(--color-gold);
 }
