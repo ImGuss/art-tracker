@@ -15,3 +15,12 @@ export interface ArtworkDetail extends Artwork {
   artic_id: number | null;
   met_id: number | null;
 }
+
+export interface CreateArtworkData {
+  title: string;
+  artist_id: string | null;
+  museum_id: string | null;
+  year_created: string | null;
+  medium: string | null;
+  image_url: string | null;
+}
