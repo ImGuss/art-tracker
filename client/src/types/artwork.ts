@@ -18,7 +18,7 @@ export interface ArtworkDetail extends Artwork {
 
 export interface CreateArtworkData {
   title: string;
-  artist_id: string | null;
+  artist_id: number | null;
   museum_id: string | null;
   year_created: string | null;
   medium: string | null;

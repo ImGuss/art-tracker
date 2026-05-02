@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router'
 
 import { getArtists } from '../api/artistApi'
 import { getMuseums } from '../api/museumApi'
@@ -14,6 +15,8 @@ const AddArtworkForm = () => {
   const [showDropDown, setShowDropDown] = useState(false)
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null)
   const [error, setError] = useState<string | null>(null)
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!searchTerm) {
@@ -62,12 +65,43 @@ const AddArtworkForm = () => {
     setShowDropDown(false)
   }
 
-  const handleSubmit = async (e:React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    
-
-    const res = await createArtwork(data)
+    try {
+      const data = new FormData(e.currentTarget)
+  
+      const title = data.get('title') as string
+      const artist_id = selectedArtist?.id ?? null
+      const museum_id = data.get('museum') as string | null
+      const year_created = data.get('year_created') as string | null 
+      const medium = data.get('medium') as string | null
+      const image_url = data.get('image_url') as string | null
+  
+  
+      if (!title) {
+        setError('Artwork title is required')
+        return
+      }
+  
+      const body = {
+        title,
+        artist_id: artist_id || null,
+        museum_id: museum_id || null,
+        year_created: year_created || null,
+        medium: medium || null,
+        image_url: image_url || null
+      }
+  
+      console.log(body)
+  
+      const res = await createArtwork(body)
+  
+      navigate(`/artworks/${res.id}`)
+      
+    } catch (err) {
+      setError('Error adding artwork')
+    }
   }
 
   const renderArtists = artists.map(artist => {
@@ -95,9 +129,14 @@ const AddArtworkForm = () => {
   })
 
   return (
-    <form action="" className="modal-form">
+    <form onSubmit={handleSubmit} className="modal-form">
       <label htmlFor="add-artwork-title">Title</label>
-      <input id="add-artwork-title" type="text" placeholder="e.g. Mona Lisa" />
+      <input
+        id="add-artwork-title"
+        type="text"
+        name="title"
+        placeholder="e.g. Mona Lisa"
+      />
 
       <div className="artwork-form-search-artist">
         <label htmlFor="add-artwork-artist-name">Artist</label>
@@ -125,19 +164,34 @@ const AddArtworkForm = () => {
       </select>
 
       <label htmlFor="add-artwork-year-created">Year Created</label>
-      <input id="add-artwork-year-created" type="number" />
+      <input
+        id="add-artwork-year-created"
+        name="year_created"
+        type="number"
+      />
 
       <label htmlFor="add-artwork-medium">Medium</label>
-      <input id="add-artwork-medium" type="text" placeholder="e.g. Oil on canvas" name="medium" />
+      <input
+        id="add-artwork-medium"
+        type="text"
+        name="medium"
+        placeholder="e.g. Oil on canvas"
+      />
 
       <label htmlFor="add-artwork-image-url">Image URL</label>
-      <input id="add-artwork-image-url" type="text" placeholder="e.g. wikimedia.com/mona-lisa.jpg" name="image_url" />
+      <input
+        id="add-artwork-image-url"
+        type="text"
+        name="image_url"
+        placeholder="e.g. wikimedia.com/mona-lisa.jpg"
+      />
+      { error && <p className="form-error">{error}</p> }
 
       <div className="modal-btn-container">
         <button className="gold-outline-btn">Cancel</button>
         <button
-          onSubmit={handleSubmit}
           className="gold-btn"
+          type="submit"
         >
           Add Artwork
         </button>
