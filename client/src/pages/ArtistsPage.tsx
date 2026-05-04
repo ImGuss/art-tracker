@@ -84,7 +84,9 @@ const ArtistsPage = () => {
       onClose={() => {setIsOpen(false)}}
       title="Add Artist"
     >
-      <AddArtistForm />
+      <AddArtistForm
+        onClose={() => {setIsOpen(false)}}
+      />
     </Modal>
 
       <div className="page-header">

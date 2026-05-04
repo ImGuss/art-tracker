@@ -8,7 +8,11 @@ import { createArtwork } from '../api/artworkApi'
 import type { Artist } from '../types/artist'
 import type { Museum } from '../types/museum'
 
-const AddArtworkForm = () => {
+interface AddArtworkFormProps {
+  onClose: () => void
+}
+
+const AddArtworkForm = ({onClose}: AddArtworkFormProps) => {
   const [searchTerm, setSearchTerm] = useState<string>('')
   const [artists, setArtists] = useState<Artist[]>([])
   const [museums, setMuseums] = useState<Museum[]>([])
@@ -70,11 +74,14 @@ const AddArtworkForm = () => {
 
     try {
       const data = new FormData(e.currentTarget)
+
+      const rawMuseumId = data.get('museum')
+      const rawYearCreated = data.get('year_created')
   
       const title = data.get('title') as string
       const artist_id = selectedArtist?.id ?? null
-      const museum_id = data.get('museum') as string | null
-      const year_created = data.get('year_created') as string | null 
+      const museum_id = rawMuseumId ? Number(rawMuseumId) : null
+      const year_created = rawYearCreated ? Number(rawYearCreated) : null 
       const medium = data.get('medium') as string | null
       const image_url = data.get('image_url') as string | null
   
@@ -143,7 +150,6 @@ const AddArtworkForm = () => {
         <input type="text"
           id="add-artwork-artist-name"
           value={searchTerm}
-          name="name"
           onChange={handleChange}
           onBlur={() => setShowDropDown(false)}
           placeholder="e.g. Vincent van Gogh"
@@ -160,7 +166,6 @@ const AddArtworkForm = () => {
       <select id="add-artwork-museum" name="museum">
         <option value="">Select Museum</option>
         {renderMuseums}
-        <option value="">Unknown</option>
       </select>
 
       <label htmlFor="add-artwork-year-created">Year Created</label>
@@ -188,7 +193,13 @@ const AddArtworkForm = () => {
       { error && <p className="form-error">{error}</p> }
 
       <div className="modal-btn-container">
-        <button className="gold-outline-btn">Cancel</button>
+        <button
+          className="gold-outline-btn"
+          type="button"
+          onClick={onClose}
+        >
+          Cancel
+        </button>
         <button
           className="gold-btn"
           type="submit"
