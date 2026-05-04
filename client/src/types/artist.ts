@@ -15,3 +15,11 @@ export interface Artist {
 export interface ArtistDetail extends Artist {
   artworks: Artwork[];
 }
+
+export interface CreateArtistData {
+  name: string;
+  birth_year: number | null;
+  death_year: number | null;
+  birth_place: string | null;
+  description: string | null;
+}
