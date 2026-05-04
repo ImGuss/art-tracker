@@ -62,7 +62,7 @@ const ArtistDetailPage = () => {
     return <p className="error">Artist not found</p>
   }
 
-  const artworkElements = artist.artworks.map(artwork => (
+  const renderArtworks = artist.artworks.map(artwork => (
     <ArtworkCard
       key={artwork.id}
       artwork={artwork}
@@ -97,11 +97,11 @@ const ArtistDetailPage = () => {
       <div className="about-artist">
         <div className="artist-image-wrap">
           <img
-            src={artist.artworks[0].image_url ?? undefined}
+            src={artist.artworks[0]?.image_url ?? undefined}
             alt={`Example artwork by ${artist.name}`}
           />
           <p className="image-caption">
-            {`${artist.artworks[0].title}, ${artist.artworks[0].year_created ?? 'Year unknown'}`}
+            {`${artist.artworks[0]?.title}, ${artist.artworks[0]?.year_created ?? 'Year unknown'}`}
           </p>
         </div>
         <div className="artist-bio">
@@ -117,7 +117,11 @@ const ArtistDetailPage = () => {
       <div className="page">
         <h2 className="section-title">Artworks</h2>
         <div className="page-grid">
-          {artworkElements}
+          {
+            renderArtworks.length > 0 ?
+            renderArtworks :
+            <p>No artworks to show</p>
+          }
         </div>
       </div>
     </section>
