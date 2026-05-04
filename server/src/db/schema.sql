@@ -68,8 +68,8 @@ CREATE TABLE IF NOT EXISTS artwork_tags (
 
 CREATE TABLE IF NOT EXISTS visits (
   id SERIAL PRIMARY KEY,
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  museum_id INTEGER REFERENCES museums(id) ON DELETE CASCADE,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  museum_id INTEGER NOT NULL REFERENCES museums(id) ON DELETE CASCADE,
   visit_date DATE NOT NULL,
   UNIQUE (user_id, museum_id, visit_date)
 );
