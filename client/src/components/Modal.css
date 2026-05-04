@@ -57,6 +57,7 @@
     "blabel dlabel"
     "binput dinput"
   ;
+  max-width: 100%;
 }
 
 .modal-dual-input > *:nth-child(1) {
@@ -75,6 +76,12 @@
 .modal-dual-input > *:nth-child(4) {
   grid-area: dinput;
   margin-left: 0.5rem;
+}
+
+.modal-form textarea {
+  margin-bottom: 0.5rem;
+  max-width: 100%;
+  resize: none;
 }
 
 .modal-btn-container {
