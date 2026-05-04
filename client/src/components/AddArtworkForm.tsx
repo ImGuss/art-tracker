@@ -9,7 +9,7 @@ import type { Artist } from '../types/artist'
 import type { Museum } from '../types/museum'
 
 interface AddArtworkFormProps {
-  onClose: () => void
+  onClose: () => void;
 }
 
 const AddArtworkForm = ({onClose}: AddArtworkFormProps) => {
