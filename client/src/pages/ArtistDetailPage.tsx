@@ -120,7 +120,7 @@ const ArtistDetailPage = () => {
           {
             renderArtworks.length > 0 ?
             renderArtworks :
-            <p>No artworks to show</p>
+            <p className="no-content">No artworks to show</p>
           }
         </div>
       </div>
