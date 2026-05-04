@@ -9,5 +9,12 @@ export interface Museum {
 }
 
 export interface MuseumDetail extends Museum {
-  artworks: Artwork[]
+  artworks: Artwork[];
+}
+
+export interface CreateMuseumData {
+  name: string;
+  city: string;
+  country: string;
+  image_url: string | null;
 }

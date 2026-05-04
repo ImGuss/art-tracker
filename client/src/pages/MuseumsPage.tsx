@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router'
 
 import type { Museum } from '../types/museum'
 
@@ -9,6 +8,8 @@ import './MuseumsPage.css'
 
 // components
 import MuseumCard from '../components/MuseumCard'
+import AddMuseumForm from '../components/AddMuseumForm'
+import Modal from '../components/Modal'
 
 const MuseumsPage = () => {
 
@@ -16,6 +17,7 @@ const MuseumsPage = () => {
   const [museums, setMuseums] = useState<Museum[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,14 +59,24 @@ const MuseumsPage = () => {
 
   return (
     <section className="page">
+
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {setIsOpen(false)}}
+        title="Add Museum"
+      >
+        <AddMuseumForm
+          onClose={() => {setIsOpen(false)}}
+        />
+      </Modal>
       <div className="page-header">
         <h2 className="page-title">Museums</h2>
-        <Link
+        <button
           className="gold-btn"
-          to="/museums/add"
+          onClick={() => {setIsOpen(true)}}
         >
           Add Museum
-        </Link>
+        </button>
       </div>
 
       <div className="page-grid">
