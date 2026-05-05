@@ -22,9 +22,9 @@ const AddVisitForm = ({onClose, museumId}: AddVisitFormProps) => {
     try {
       const data = new FormData(e.currentTarget)
 
-      const rawVisitDate = data.get('visit_date')
+      const visit_date = data.get('visit_date') as string
 
-      if (!rawVisitDate) {
+      if (!visit_date) {
         setError('Visit date required')
         return
       }
@@ -33,8 +33,6 @@ const AddVisitForm = ({onClose, museumId}: AddVisitFormProps) => {
         setError('Must be logged in to log a visit')
         return
       }
-
-      const visit_date = Number(rawVisitDate)
 
       const body = {
         user_id: user?.id,
@@ -76,7 +74,7 @@ const AddVisitForm = ({onClose, museumId}: AddVisitFormProps) => {
           className="gold-btn"
           type="submit"
         >
-          Add Artist
+          Add Visit
         </button>
       </div>
     </form>
