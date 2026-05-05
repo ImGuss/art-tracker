@@ -10,6 +10,8 @@ import { getMuseumById } from '../api/museumApi'
 
 // components
 import ArtworkCard from '../components/ArtworkCard'
+import AddVisitForm from '../components/AddVisitForm'
+import Modal from '../components/Modal'
 
 import './MuseumDetailPage.css'
 
@@ -20,6 +22,7 @@ const MuseumDetailPage = () => {
   const [museum, setMuseum] = useState<MuseumDetail | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [isOpen, setIsOpen] = useState(false)
 
   const { user } = useAuth()
 
@@ -89,6 +92,17 @@ const MuseumDetailPage = () => {
         <ArrowLeft size="0.8rem" /> Back to Museums
       </Link>
 
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {setIsOpen(false)}}
+        title="Add Visit"
+      >
+        <AddVisitForm
+          onClose={() => {setIsOpen(false)}}
+          museumId={museum.id}
+        />
+      </Modal>
+
       <div className="detail-columns">
         <div className="detail-left-column">
           <div className="detail-image-wrap-landscape">
@@ -124,7 +138,12 @@ const MuseumDetailPage = () => {
           { 
             user ?
             <div className="detail-actions">
-              <button className="gold-btn">Log a Visit</button>
+              <button
+                className="gold-btn"
+                onClick={() => setIsOpen(true)}
+              >
+                Log a Visit
+              </button>
               <button className="gold-outline-btn">View All Visits</button>
             </div> : null
           }
