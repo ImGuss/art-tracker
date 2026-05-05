@@ -23,10 +23,13 @@ export async function getVisitById(visitId) {
         m.name AS museum_name,
         COALESCE(JSON_AGG(
           json_build_object(
-            'artwork_id', aw.id,
+            'id', aw.id,
             'title', aw.title,
-            'image_url', aw.image_url,
-            'artist_name', a.name
+            'artist_id', a.id,
+            'artist_name', a.name,
+            'year_created', aw.year_created,
+            'medium', aw.medium,
+            'image_url', aw.image_url
         )) FILTER (WHERE aw.id IS NOT NULL), '[]' ) AS items
       FROM visits v
       LEFT JOIN visit_artworks va ON va.visit_id = v.id
