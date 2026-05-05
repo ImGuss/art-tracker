@@ -15,6 +15,7 @@ import TagsPage from './pages/TagsPage'
 import DashboardPage from './pages/DashboardPage'
 import CollectionsPage from './pages/CollectionsPage'
 import VisitsPage from './pages/VisitsPage'
+import VisitDetailPage from './pages/VisitDetailPage'
 
 import './App.css'
 
@@ -35,6 +36,7 @@ function App() {
         <Route path='/tags' element={<TagsPage />} />
         {/* PROTECTED ROUTES */}
         <Route path='/collections' element={<ProtectedRoute><CollectionsPage /></ProtectedRoute>} />      
+        <Route path="/visits/:id" element={<ProtectedRoute><VisitDetailPage /></ProtectedRoute>} />
         <Route path='/visits' element={<ProtectedRoute><VisitsPage /></ProtectedRoute>} />
         {/* <Route path='*' element={<NotFoundPage />} /> */}
       </Route>
