@@ -30,7 +30,7 @@ export async function getVisitById(visitId) {
             'year_created', aw.year_created,
             'medium', aw.medium,
             'image_url', aw.image_url
-        )) FILTER (WHERE aw.id IS NOT NULL), '[]' ) AS items
+        )) FILTER (WHERE aw.id IS NOT NULL), '[]' ) AS artworks
       FROM visits v
       LEFT JOIN visit_artworks va ON va.visit_id = v.id
       LEFT JOIN artworks aw ON va.artwork_id = aw.id
