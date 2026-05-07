@@ -31,6 +31,37 @@ export async function getMuseumById(id) {
   return res.rows[0] || null
 }
 
+export async function getArtworksByMuseumId(id, limit, offset, searchTerm) {
+  let filter = ``
+  let valuesArray
+
+  if (searchTerm) {
+    filter = 
+    `
+      AND (aw.title ILIKE $4 OR a.name ILIKE $4 OR aw.medium ILIKE $4)
+    `
+    valuesArray = [id, limit, offset, `%${searchTerm}%`]
+  } else {
+    valuesArray = [id, limit, offset]
+  }
+
+  const res = await pool.query(
+    `
+      SELECT DISTINCT ON (aw.id)
+        aw.*,
+        a.name AS artist_name
+      FROM artworks aw
+      LEFT JOIN artists a ON aw.artist_id = a.id
+      WHERE aw.museum_id = $1
+      ${filter}
+      ORDER BY aw.id, a.id ASC
+      LIMIT $2 OFFSET $3
+    `, valuesArray
+  )
+
+  return res.rows
+}
+
 export async function createNewMuseum(body) {
   const { name, city, country, image_url } = body
 

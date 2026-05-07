@@ -1,4 +1,9 @@
-import { getAllMuseums, getMuseumById, createNewMuseum } from '../models/museumModel.js'
+import {
+  getAllMuseums,
+  getMuseumById,
+  getArtworksByMuseumId, 
+  createNewMuseum
+} from '../models/museumModel.js'
 import { AppError } from '../utils/AppError.js'
 
 export async function getMuseums(req, res, next) {
@@ -29,6 +34,28 @@ export async function getMuseum(req, res, next) {
     }
 
     res.json(museum)
+
+  } catch (err) {
+    next(err)
+  }
+}
+
+export async function getArtworksByMuseum(req, res, next) {
+  try {
+    
+    const id = Number(req.params.id)
+
+    const limit = parseInt(req.query.limit, 10) || 5
+    const offset = parseInt(req.query.offset, 10) || 0
+    const searchTerm = req.query.q
+
+    if (isNaN(id)) {
+      return next(new AppError('Invalid museum id', 400))
+    }
+
+    const museumArtworks = await getArtworksByMuseumId(id, limit, offset, searchTerm)
+
+    return res.json(museumArtworks)
 
   } catch (err) {
     next(err)
