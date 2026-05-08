@@ -20,6 +20,12 @@ export async function createVisit(data: AddVisitFormData) {
   return res.data
 }
 
+export async function addArtworkToVisit(visitId: number, artworkId: number) {
+  const res = await axiosInstance.post(`/visits${visitId}/artworks/${artworkId}`)
+
+  return res.data
+}
+
 export async function removeArtworkFromVisit(visitId: number, artworkId: number) {
   const res = await axiosInstance.delete(`/visits/${visitId}/artworks/${artworkId}`)
 
