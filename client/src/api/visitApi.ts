@@ -21,7 +21,7 @@ export async function createVisit(data: AddVisitFormData) {
 }
 
 export async function addArtworkToVisit(visitId: number, artworkId: number) {
-  const res = await axiosInstance.post(`/visits${visitId}/artworks/${artworkId}`)
+  const res = await axiosInstance.post(`/visits/${visitId}/artworks/${artworkId}`)
 
   return res.data
 }
