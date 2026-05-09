@@ -11,7 +11,7 @@ export async function getVisitsByUser(userId) {
           'id', aw.id,
           'title', aw.title,
           'image_url', aw.image_url
-        )) FILTER (WHERE aw.id IS NOT NULL), '[]') AS artworks
+        )) FILTER (WHERE aw.id IS NOT NULL), '[]') AS artwork_thumbnails
       FROM visits v
       LEFT JOIN visit_artworks va ON va.visit_id = v.id
       LEFT JOIN artworks aw ON va.artwork_id = aw.id
