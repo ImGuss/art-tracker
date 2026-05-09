@@ -3,9 +3,21 @@ import pool from '../db/db.js'
 export async function getVisitsByUser(userId) {
   const res = await pool.query(
     `
-      SELECT * FROM visits
-      WHERE user_id = $1
-      ORDER BY visit_date DESC
+      SELECT
+        v.*,
+        m.name AS museum_name,
+        COALESCE(JSON_AGG(
+        json_build_object(
+          'id', aw.id,
+          'title', aw.title,
+          'image_url', aw.image_url
+        )) FILTER (WHERE aw.id IS NOT NULL), '[]') AS artworks
+      FROM visits v
+      LEFT JOIN visit_artworks va ON va.visit_id = v.id
+      LEFT JOIN artworks aw ON va.artwork_id = aw.id
+      LEFT JOIN museums m ON v.museum_id = m.id
+      WHERE v.user_id = $1
+      GROUP BY v.id, m.name
     `, [userId]
   )
 
