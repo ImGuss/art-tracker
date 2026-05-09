@@ -84,6 +84,8 @@ const VisitDetailPage = () => {
 
       setArtworks(prevArtworks => [...prevArtworks, artwork])
       setShowDropDown(false)
+      setSearchTerm('')
+      setSearchResults([])
     } catch (err) {
       setError('Failed to add artwork to visit')
     }
@@ -100,7 +102,7 @@ const VisitDetailPage = () => {
     }
   }
 
-  const renderArtworks = artworks?.map(artwork => {
+  const renderArtworks = artworks.map(artwork => {
     return (
       <div key={artwork.id} className="visit-artwork-card">
         <ArtworkCard
@@ -174,7 +176,7 @@ const VisitDetailPage = () => {
       <h2 className="section-title">Logged Artworks</h2>
       <div className="page-grid">
         {
-          artworks?.length > 0 ?
+          artworks.length > 0 ?
           renderArtworks :
           <p className="no-content">No artworks logged in this visit yet</p>
         }
