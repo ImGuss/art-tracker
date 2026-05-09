@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router'
 import type { VisitDetail } from '../types/visit'
 import type { Artwork } from '../types/artwork'
 
-import { getVisitById, removeArtworkFromVisit } from '../api/visitApi'
+import { getVisitById, addArtworkToVisit, removeArtworkFromVisit } from '../api/visitApi'
 import { getArtworksByMuseum } from '../api/museumApi'
 
 import { ArrowLeft, X } from 'lucide-react'
@@ -20,7 +20,6 @@ const VisitDetailPage = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [searchResults, setSearchResults] = useState<Artwork[]>([])
   const [showDropDown, setShowDropDown] = useState(false)
-  const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   const numericId = id ? parseInt(id, 10) : NaN
@@ -31,10 +30,17 @@ const VisitDetailPage = () => {
       return
     }
 
+    if (!visit) {
+      setError('Visit not found')
+      return
+    }
+
     const handler = setTimeout(() => {
       (async () => {
         try {
-          const res = await getArtworksByMuseum(numericId, 5, 0, searchTerm)
+          const res = await getArtworksByMuseum(visit.museum_id, 5, 0, searchTerm)
+
+          console.log(res)
 
           setSearchResults(res)
         } catch (err) {
@@ -46,7 +52,7 @@ const VisitDetailPage = () => {
     return () => {
       clearTimeout(handler)
     }
-  }, [searchTerm])
+  }, [searchTerm, visit])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,6 +76,17 @@ const VisitDetailPage = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value)
     setShowDropDown(true)
+  }
+
+  const addArtwork = async (artwork: Artwork) => {
+    try {
+      await addArtworkToVisit(visit.id, artwork.id)
+
+      setArtworks(prevArtworks => [...prevArtworks, artwork])
+      setShowDropDown(false)
+    } catch (err) {
+      setError('Failed to add artwork to visit')
+    }
   }
 
   const removeArtwork = async (artworkId: number) => {
@@ -102,15 +119,15 @@ const VisitDetailPage = () => {
 
   const renderSearchResults = searchResults.map(artwork => {
     return (
-      <div
+      <li
         key={artwork.id}
-        onClick={() =>  setSelectedArtwork(artwork)}
+        onMouseDown={() =>  addArtwork(artwork)}
       >
         <ArtworkCard
           artwork={artwork}
           showArtist={true}
         />
-      </div>
+      </li>
     )
   })
 
@@ -123,10 +140,19 @@ const VisitDetailPage = () => {
         >
           <ArrowLeft size="0.8rem" /> Back to Visits
         </Link>
-        <h1 className="visit-detail-title"></h1>
+        <h1 className="visit-detail-title">{visit.museum_name}</h1>
+        <span className="visit-detail-date">
+          {
+            new Date(visit.visit_date).toLocaleDateString('en-US',{
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric'
+            })
+          }
+        </span>
       </div>
 
-      <div className="">
+      <div className="visit-artwork-search">
         <label htmlFor="add-new-artwork">Search for artworks to log</label>
         <input
           type="text"
@@ -139,9 +165,9 @@ const VisitDetailPage = () => {
 
         {
           showDropDown &&
-          <div>
+          <ul>
             {renderSearchResults}
-          </div>
+          </ul>
         }
       </div>
 

@@ -1,0 +1,69 @@
+.visit-detail-date {
+  color: var(--color-text-grey);
+  font-size: 0.9rem;
+}
+
+.visit-artwork-search {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  padding: 2rem;
+  position: relative;
+}
+
+.visit-artwork-search label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+}
+
+.visit-artwork-search input {
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.visit-artwork-search ul {
+  list-style: none;
+  display: flex;
+  gap: 0.5rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  overflow-x: auto;
+  padding: 1rem;
+  z-index: 1;
+}
+
+.visit-artwork-search li {
+  min-width: 200px;
+  max-width: 300px;
+}
+
+.visit-artwork-card {
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.visit-artwork-card .card {
+  transform: none;
+}
+
+.visit-artwork-card:hover {
+  transform: translateY(-3px);
+}
+
+.delete-logged-artwork-btn {
+  opacity: 0;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  transition: opacity 0.2s ease;
+  padding: 0.5rem;
+}
+
+.visit-artwork-card:hover .delete-logged-artwork-btn {
+  opacity: 1;
+}
