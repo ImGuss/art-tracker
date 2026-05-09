@@ -186,6 +186,10 @@
 
 
 /* ERROR */
+.error {
+  text-align: center;
+}
+
 .form-error {
   background-color: #F9EDED;
   color: #9B3A3A;
