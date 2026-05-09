@@ -6,11 +6,13 @@ export interface Visit {
   museum_id: number;
   museum_name: string;
   visit_date: string;
+  artwork_thumbnails: VisitArtwork[];
 }
 
 export interface VisitArtwork {
-  visit_id: number;
-  artwork_id: number;
+  id: number;
+  title: string;
+  image_url: string | null;
 }
 
 export interface VisitDetail extends Visit {
