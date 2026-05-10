@@ -1,5 +1,5 @@
 visits
-visit details
+  show visit cards with a small grid for artwork thumbnails
 remove static visit code from museum detail
 
 collections
