@@ -31,7 +31,12 @@ const VisitsPage = () => {
   const renderVisits = visits.map(visit => {
     return (
       <GalleryCard
-        visit={visit}
+        key={visit.id}
+        id={visit.id}
+        title={visit.museum_name}
+        date={visit.visit_date}
+        artworkThumbnails={visit.artwork_thumbnails}
+        linkTo='/visits/'
       />
     )
   })
