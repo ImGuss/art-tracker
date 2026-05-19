@@ -6,7 +6,7 @@ import { useAuth } from '../hooks/useAuth'
 
 import type { MuseumDetail } from '../types/museum'
 
-import { getMuseumById } from '../api/museumApi'
+import { getMuseumById, getVisitsByMuseum } from '../api/museumApi'
 
 // components
 import ArtworkCard from '../components/ArtworkCard'
@@ -23,6 +23,7 @@ const MuseumDetailPage = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState(false)
+  const [visitAmount, setVisitAmount] = useState(0)
 
   const { user } = useAuth()
 
@@ -36,9 +37,15 @@ const MuseumDetailPage = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true)
-        const res = await getMuseumById(numericId)
+        const museum = await getMuseumById(numericId)
 
-        setMuseum(res)
+        if (user) {
+          const visits = await getVisitsByMuseum(numericId)
+          
+          setVisitAmount(visits.length)
+        }
+
+        setMuseum(museum)
       } catch (err) {
         setError('Failed to fetch museum details')
       } finally {
@@ -131,8 +138,7 @@ const MuseumDetailPage = () => {
           {
             user ?
             <div className="museum-detail-visit-badge">
-              {/* temporary static number until i add visits logic */}
-              <Check size="0.8rem" /> <span>Visited 3 times</span>
+              <Check size="0.8rem" /> <span>Visited {visitAmount} times</span>
             </div> : null
           }
           { 
@@ -144,6 +150,7 @@ const MuseumDetailPage = () => {
               >
                 Log a Visit
               </button>
+              {/* need to add a link once i've created the page */}
               <button className="gold-outline-btn">View All Visits</button>
             </div> : null
           }
