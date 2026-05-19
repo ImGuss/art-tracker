@@ -1,6 +1,7 @@
 import {
   getAllMuseums,
   getMuseumById,
+  getVisitsByMuseumId,
   getArtworksByMuseumId, 
   createNewMuseum
 } from '../models/museumModel.js'
@@ -34,6 +35,21 @@ export async function getMuseum(req, res, next) {
     }
 
     res.json(museum)
+
+  } catch (err) {
+    next(err)
+  }
+}
+
+export async function getVisitsByMuseum(req, res, next) {
+  try {
+
+    const userId = req.user.id
+    const museumId = Number(req.params.id)
+    
+    const visits = await getVisitsByMuseumId(userId, museumId)
+
+    res.json(visits)
 
   } catch (err) {
     next(err)

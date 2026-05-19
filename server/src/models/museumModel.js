@@ -31,6 +31,17 @@ export async function getMuseumById(id) {
   return res.rows[0] || null
 }
 
+export async function getVisitsByMuseumId(userId, museumId) {
+  const res = await pool.query(
+    `
+      SELECT * FROM visits
+      WHERE user_id = $1 AND museum_id = $2
+    `, [userId, museumId]
+  )
+
+  return res.rows
+}
+
 export async function getArtworksByMuseumId(id, limit, offset, searchTerm) {
   let filter = ``
   let valuesArray
