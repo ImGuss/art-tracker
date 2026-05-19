@@ -14,6 +14,12 @@ export async function getMuseumById(id: number) {
   return res.data
 }
 
+export async function getVisitsByMuseum(id: number) {
+  const res = await axiosInstance.get(`/museums/${id}/visits`)
+
+  return res.data
+}
+
 export async function getArtworksByMuseum(id: number, limit: number, offset: number, q: string | undefined) {
   const params = new URLSearchParams({
     limit: String(limit),
