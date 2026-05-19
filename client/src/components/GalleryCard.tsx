@@ -1,16 +1,19 @@
 import { Link } from 'react-router'
 
-import type { Visit } from '../types/visit'
+import type { ArtworkThumbnail } from '../types/common'
 
 import './GalleryCard.css'
 
 interface GalleryCardProps {
-  visit: Visit;
-  // collection: Collection | null;
+  id: number;
+  title: string;
+  date: string;
+  artworkThumbnails: ArtworkThumbnail[];
+  linkTo: string;
 }
 
-const GalleryCard = ({ visit }: GalleryCardProps) => {
-  const thumbnails = visit.artwork_thumbnails.slice(0, 4)
+const GalleryCard = (data: GalleryCardProps) => {
+  const thumbnails = data.artworkThumbnails.slice(0, 4)
 
   const renderArtworks = thumbnails.map(artwork => {
     return (
@@ -33,20 +36,20 @@ const GalleryCard = ({ visit }: GalleryCardProps) => {
         }
       </div>
 
-      <h2>{visit.museum_name}</h2>
+      <h2>{data.title}</h2>
 
       <div className="date-link">
         <span>
           {
-            new Date(visit.visit_date).toLocaleDateString('en-US', {
+            new Date(data.date).toLocaleDateString('en-US', {
               month: 'short',
               day: 'numeric',
               year: 'numeric'
             })
           }
         </span>
-        <Link className="gold-link" to={`/visits/${visit.id}`}>
-          {visit.artwork_thumbnails.length} artworks
+        <Link className="gold-link" to={`${data.linkTo}${data.id}`}>
+          {data.artworkThumbnails.length} artworks
         </Link>
       </div>
     </article>
