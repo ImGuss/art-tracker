@@ -12,6 +12,10 @@
   align-items: center;
 }
 
+.page-subheader {
+  color: var(--color-text-grey);
+}
+
 .detail-page-header {
   display: flex;
   flex-direction: column;
