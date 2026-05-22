@@ -4,8 +4,6 @@ import type { Collection } from '../types/collection'
 
 import { getUserCollections } from '../api/collectionApi'
 
-import './CollectionsPage.css'
-
 // components
 import GalleryCard from '../components/GalleryCard'
 
