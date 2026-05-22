@@ -3,8 +3,19 @@ import pool from '../db/db.js'
 export async function getCollectionsByUser(userId) {
   const res = await pool.query(
     `
-      SELECT * FROM collections
+      SELECT
+        c.*,
+        COALESCE(JSON_AGG(
+        json_build_object(
+          'id', aw.id,
+          'title', aw.title,
+          'image_url', aw.image_url
+        )) FILTER (WHERE aw.id IS NOT NULL), '[]') AS artwork_thumbnails
+      FROM collections c
+      LEFT JOIN collection_items ci ON ci.collection_id = c.id
+      LEFT JOIN artworks aw on ci.artwork_id = aw.id
       WHERE user_id = $1
+      GROUP BY c.id
       ORDER BY created_at DESC
     `, [userId]
   )
