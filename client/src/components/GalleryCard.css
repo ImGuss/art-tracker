@@ -1,7 +1,3 @@
-.gallery-card {
-  max-width: 300px;
-}
-
 .gallery-card-mosaic {
   display: grid;
   grid-template-columns: 1fr 1fr;
