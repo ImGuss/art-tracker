@@ -4,8 +4,13 @@ import type { Collection } from '../types/collection'
 
 import { getUserCollections } from '../api/collectionApi'
 
+import './CollectionsPage.css'
+
+// components
+import GalleryCard from '../components/GalleryCard'
+
 const CollectionsPage = () => {
-  const [collections, setCollections] = useState<Collection | null>(null)
+  const [collections, setCollections] = useState<Collection[]>([])
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsloading] = useState(false)
 
@@ -25,8 +30,42 @@ const CollectionsPage = () => {
     })()
   }, [])
 
+  if (error) {
+    return (
+      <p className="error">{error}</p>
+    )
+  }
+
+  if (isLoading) {
+    return(
+      <p className="loading">Loading...</p>
+    )
+  }
+
+  const renderCollections = collections.map(collection => {
+    return (
+      <GalleryCard
+        key={collection.id}
+        id={collection.id}
+        title={collection.name}
+        date={collection.created_at}
+        artworkThumbnails={collection.artwork_thumbnails}
+        linkTo="/collections/"
+      />
+    )
+  })
+
   return (
-    <div>Collections Page</div>
+    <section className="page">
+      <div className="page-header">
+        <h2 className="page-title">My Collections</h2>
+        <p className="page-subheader">Your collections</p>
+      </div>
+
+      <div className="page-grid">
+        {renderCollections}
+      </div>
+    </section>
   )
 }
 
