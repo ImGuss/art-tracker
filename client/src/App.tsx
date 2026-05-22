@@ -13,6 +13,7 @@ import MuseumDetailPage from './pages/MuseumDetailPage'
 import MuseumsPage from './pages/MuseumsPage'
 import TagsPage from './pages/TagsPage'
 import DashboardPage from './pages/DashboardPage'
+import CollectionDetailPage from './pages/CollectionDetailPage'
 import CollectionsPage from './pages/CollectionsPage'
 import VisitsPage from './pages/VisitsPage'
 import VisitDetailPage from './pages/VisitDetailPage'
@@ -24,21 +25,22 @@ function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route path='/' element={<DashboardPage />} />
-        <Route path='/login' element={<LoginPage />} />
-        <Route path='/register' element={<RegisterPage />} />
-        <Route path='/artists/:id' element={<ArtistDetailPage />} />
-        <Route path='/artists' element={<ArtistsPage />} />
-        <Route path='/artworks/:id' element={<ArtworkDetailPage />} />
-        <Route path='/artworks' element={<ArtworksPage />} />
-        <Route path='/museums/:id' element={<MuseumDetailPage />} />
-        <Route path='/museums' element={<MuseumsPage />} />
-        <Route path='/tags' element={<TagsPage />} />
+        <Route path="/" element={<DashboardPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/artists/:id" element={<ArtistDetailPage />} />
+        <Route path="/artists" element={<ArtistsPage />} />
+        <Route path="/artworks/:id" element={<ArtworkDetailPage />} />
+        <Route path="/artworks" element={<ArtworksPage />} />
+        <Route path="/museums/:id" element={<MuseumDetailPage />} />
+        <Route path="/museums" element={<MuseumsPage />} />
+        <Route path="/tags" element={<TagsPage />} />
         {/* PROTECTED ROUTES */}
-        <Route path='/collections' element={<ProtectedRoute><CollectionsPage /></ProtectedRoute>} />      
+        <Route path="/collections/:id" element={<ProtectedRoute><CollectionDetailPage /></ProtectedRoute>} />
+        <Route path="/collections" element={<ProtectedRoute><CollectionsPage /></ProtectedRoute>} />      
         <Route path="/visits/:id" element={<ProtectedRoute><VisitDetailPage /></ProtectedRoute>} />
-        <Route path='/visits' element={<ProtectedRoute><VisitsPage /></ProtectedRoute>} />
-        {/* <Route path='*' element={<NotFoundPage />} /> */}
+        <Route path="/visits" element={<ProtectedRoute><VisitsPage /></ProtectedRoute>} />
+        {/* <Route path="*" element={<NotFoundPage />} /> */}
       </Route>
     </Routes>
   )
