@@ -36,7 +36,7 @@ const VisitsPage = () => {
         title={visit.museum_name}
         date={visit.visit_date}
         artworkThumbnails={visit.artwork_thumbnails}
-        linkTo='/visits/'
+        linkTo="/visits/"
       />
     )
   })
@@ -54,15 +54,15 @@ const VisitsPage = () => {
   }
 
   return (
-    <div className="page">
+    <section className="page">
       <div className="page-header">
         <h2 className="page-title">My Visits</h2>
-        <p className="museum-page-subheader">Museums you've visited</p>
+        <p className="page-subheader">Museums you've visited</p>
       </div>
       <div className="page-grid">
         {renderVisits}
       </div>
-    </div>
+    </section>
   )
 }
 
