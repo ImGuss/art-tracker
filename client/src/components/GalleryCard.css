@@ -47,7 +47,7 @@
 .date-link {
   display: flex;
   justify-content: space-between;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .date-link span {
