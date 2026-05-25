@@ -38,7 +38,7 @@ export async function getCollectionById(id) {
             'image_url', aw.image_url,
             'artist_name', a.name,
             'favorite', ci.favorite
-          )) FILTER (WHERE aw.id IS NOT NULL), '[]') AS items
+          )) FILTER (WHERE aw.id IS NOT NULL), '[]') AS artworks
       FROM collections c
       LEFT JOIN collection_items ci ON ci.collection_id = c.id
       LEFT JOIN artworks aw ON ci.artwork_id = aw.id
