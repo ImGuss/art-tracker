@@ -20,7 +20,7 @@ collectionRouter.get('/:id', getCollection)
 collectionRouter.get('/', getUserCollections)
 
 
-collectionRouter.post('/:id/items/:artworkId', addItemToCollection)
+collectionRouter.post('/:id/artworks/:artworkId', addItemToCollection)
 collectionRouter.post('/', createCollection)
 
 collectionRouter.delete('/:id/items/:artworkId', removeFromCollection)
