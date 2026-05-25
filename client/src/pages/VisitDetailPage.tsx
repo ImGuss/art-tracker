@@ -40,8 +40,6 @@ const VisitDetailPage = () => {
         try {
           const res = await getArtworksByMuseum(visit.museum_id, 5, 0, searchTerm)
 
-          console.log(res)
-
           setSearchResults(res)
         } catch (err) {
           setError('Failed to find artworks')
@@ -55,7 +53,7 @@ const VisitDetailPage = () => {
   }, [searchTerm, visit])
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       try {
         const res = await getVisitById(numericId)
 
@@ -64,9 +62,8 @@ const VisitDetailPage = () => {
       } catch (err) {
         setError('Failed to fetch visit data')
       }
-    }
-
-    fetchData()
+    })()
+    
   }, [])
 
   if (!visit) {
