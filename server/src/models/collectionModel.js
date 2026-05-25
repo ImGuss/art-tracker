@@ -33,7 +33,7 @@ export async function getCollectionById(id) {
         c.created_at,
         COALESCE(JSON_AGG(
           json_build_object(
-            'artwork_id', aw.id,
+            'id', aw.id,
             'title', aw.title,
             'image_url', aw.image_url,
             'artist_name', a.name,
