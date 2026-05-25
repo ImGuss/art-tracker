@@ -1,6 +1,17 @@
 import pool from '../db/db.js'
 
-export async function getAllArtworks(limit, offset) {
+export async function getAllArtworks(limit, offset, searchTerm) {
+
+  let filter = ``
+  let valuesArray
+
+  if (searchTerm) {
+    filter =  `WHERE aw.title ILIKE $3`
+    valuesArray = [limit, offset, `%${searchTerm}%`]
+  } else {
+    valuesArray = [limit, offset]
+  }
+
   const res = await pool.query(
     `
       SELECT
@@ -8,9 +19,10 @@ export async function getAllArtworks(limit, offset) {
         a.name AS artist_name
       FROM artworks aw
       LEFT JOIN artists a ON aw.artist_id = a.id
+      ${filter}
       ORDER BY a.id, aw.id
       LIMIT $1 OFFSET $2
-    `, [limit, offset]
+    `, valuesArray
   )
   return res.rows
 }
