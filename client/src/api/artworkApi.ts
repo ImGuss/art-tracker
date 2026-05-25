@@ -2,9 +2,19 @@ import axiosInstance from './axiosInstance'
 
 import type { CreateArtworkData } from '../types/artwork'
 
-export async function getArtworks(limit: number, offset: number) {
+export async function getArtworks(limit: number, offset: number, q: string | undefined) {
+
+  const params = new URLSearchParams({
+    limit: String(limit),
+    offset: String(offset),
+  })
+
+  if (q) {
+    params.append('q', q)
+  }
+
   const res = await axiosInstance.get(
-    `/artworks?limit=${limit}&offset=${offset}`
+    `/artworks?${params}`
   )
 
   return res.data
