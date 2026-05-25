@@ -5,8 +5,9 @@ export async function getArtworks(req, res, next) {
   try {
     const limit = parseInt(req.query.limit, 10) || 20
     const offset = parseInt(req.query.offset, 10) || 0
+    const searchTerm = req.query.q
 
-    const artworks = await getAllArtworks(limit, offset)
+    const artworks = await getAllArtworks(limit, offset, searchTerm)
 
     res.json(artworks)
 
