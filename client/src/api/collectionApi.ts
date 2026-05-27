@@ -1,5 +1,7 @@
 import axiosInstance from './axiosInstance'
 
+import type { AddCollectionFormData } from '../types/collection'
+
 export async function getUserCollections() {
   const res = await axiosInstance.get(`/collections`)
 
@@ -12,8 +14,8 @@ export async function getCollectionById(id: number) {
   return res.data
 }
 
-export async function createCollection() {
-  const res = await axiosInstance.post(`/collections`)
+export async function createCollection(data: AddCollectionFormData) {
+  const res = await axiosInstance.post(`/collections`, data)
 
   return res.data
 }
