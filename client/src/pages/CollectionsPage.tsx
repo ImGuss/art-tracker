@@ -6,11 +6,14 @@ import { getUserCollections } from '../api/collectionApi'
 
 // components
 import GalleryCard from '../components/GalleryCard'
+import AddCollectionForm from '../components/AddCollectionForm'
+import Modal from '../components/Modal'
 
 const CollectionsPage = () => {
   const [collections, setCollections] = useState<Collection[]>([])
-  const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsloading] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     (async () => {
@@ -55,9 +58,25 @@ const CollectionsPage = () => {
 
   return (
     <section className="page">
+
+    <Modal
+      isOpen={isOpen}
+      onClose={() => setIsOpen(false)}
+      title="Create Collection"
+    >
+      <AddCollectionForm
+        onClose={() => setIsOpen(false)}
+      />
+    </Modal>
+
       <div className="page-header">
         <h2 className="page-title">My Collections</h2>
-        <p className="page-subheader">Your collections</p>
+        <button
+          className="gold-btn"
+          onClick={() => setIsOpen(true)}
+        >
+          Create Collection
+        </button>
       </div>
 
       <div className="page-grid">

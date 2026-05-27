@@ -12,3 +12,8 @@ export interface Collection {
 export interface CollectionDetail extends Collection {
   artworks: Artwork[];
 }
+
+export interface AddCollectionFormData {
+  user_id: number;
+  name: string;
+}
