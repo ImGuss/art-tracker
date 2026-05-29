@@ -1,0 +1,29 @@
+.dashboard-user-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 1rem;
+  text-align: center;
+}
+
+.dashboard-stat-item {
+  border-right: 1px solid var(--border-color);
+}
+
+.dashboard-stat-item:last-child {
+  border-right: none;
+}
+
+.stat-number {
+  font-family: var(--header-font);
+  color: var(--color-gold);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-right: 0.5rem;
+}
+
+.stat-name {
+  font-size: 0.9rem;
+  color: var(--color-text-grey);
+}
