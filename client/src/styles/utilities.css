@@ -12,6 +12,11 @@
   align-items: center;
 }
 
+.gold-header {
+  color: var(--color-gold);
+  font-style: italic;
+}
+
 .page-subheader {
   color: var(--color-text-grey);
 }
