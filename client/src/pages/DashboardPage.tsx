@@ -19,12 +19,8 @@ const DashboardPage = () => {
   const [error, setError] = useState<string | null>(null)
 
   // derived values
-  let artworksSeen = 0
-  const museumsVisited = ([...new Map(visits.map(visit => [visit.museum_id, visit.id]))]).length
-
-  for (const visit of visits) {
-    artworksSeen += visit.artwork_thumbnails.length
-  }
+  const artworksSeen = visits.reduce((acc, visit) => acc + visit.artwork_thumbnails.length, 0)
+  const museumsVisited = new Set(visits.map(visit => visit.museum_id)).size
 
   useEffect(() => {
     try {
