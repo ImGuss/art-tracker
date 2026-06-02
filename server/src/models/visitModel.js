@@ -18,6 +18,7 @@ export async function getVisitsByUser(userId) {
       LEFT JOIN museums m ON v.museum_id = m.id
       WHERE v.user_id = $1
       GROUP BY v.id, m.name
+      ORDER BY v.visit_date DESC
     `, [userId]
   )
 
