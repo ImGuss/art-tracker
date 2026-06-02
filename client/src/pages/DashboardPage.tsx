@@ -2,13 +2,16 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { useAuth } from '../hooks/useAuth'
 
-import { getUserVisits } from '../api/visitApi'
-import { getUserCollections } from '../api/collectionApi'
-
 import type { Visit } from '../types/visit'
 import type { Collection } from '../types/collection'
 
+import { getUserVisits } from '../api/visitApi'
+import { getUserCollections } from '../api/collectionApi'
+
 import './DashboardPage.css'
+
+// components
+import DashboardCard from '../components/DashboardCard'
 
 const DashboardPage = () => {
   const { user } = useAuth()
@@ -21,6 +24,7 @@ const DashboardPage = () => {
   // derived values
   const artworksSeen = visits.reduce((acc, visit) => acc + visit.artwork_thumbnails.length, 0)
   const museumsVisited = new Set(visits.map(visit => visit.museum_id)).size
+  const recentVisits = visits.length > 3 ? visits.slice(0, 3) : visits
 
   useEffect(() => {
     try {
@@ -45,7 +49,18 @@ const DashboardPage = () => {
     )
   }
 
-
+  const renderRecentVisits = recentVisits.map(visit => {
+    return (
+      <DashboardCard
+        key={visit.id}
+        id={visit.id}
+        title={visit.museum_name}
+        date={visit.visit_date}
+        artworkThumbnails={visit.artwork_thumbnails}
+        linkTo="/visits/"
+      />
+    )
+  })
 
   return (
     <section className="page">
@@ -74,6 +89,17 @@ const DashboardPage = () => {
         </div>
       </div>
 
+      <div className="dashboard-two-column">
+        <div className="dashboard-left-column">
+          <div className="dashboard-recent-visits">
+            {renderRecentVisits}
+          </div>
+        </div>
+
+        <div className="dashboard-right-column">
+          test
+        </div>
+      </div>
 
       { error && <p className="error">{error}</p> }
     </section>

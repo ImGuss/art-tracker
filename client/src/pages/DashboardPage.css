@@ -9,6 +9,7 @@
 
 .dashboard-stat-item {
   border-right: 1px solid var(--border-color);
+  align-content: center;
 }
 
 .dashboard-stat-item:last-child {
@@ -26,4 +27,31 @@
 .stat-name {
   font-size: 0.9rem;
   color: var(--color-text-grey);
+}
+
+.dashboard-two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.dashboard-left-column,
+.dashboard-right-column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 768px) {
+  .dashboard-user-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .dashboard-stat-item:nth-child(2) {
+    border-right: none;
+  }
+
+  .dashboard-two-column {
+    grid-template-columns: 1fr;
+  }
 }
