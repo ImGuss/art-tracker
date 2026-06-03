@@ -39,7 +39,53 @@
 .dashboard-right-column {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 }
+
+/* LEFT COLUMN */
+
+.dashboard-recent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dashboard-recent-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-recent-header a {
+  font-size: 0.8rem;
+}
+
+
+/* RIGHT COLUMN */
+.dashboard-quick-add {
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  background-color: var(--bg-grey);
+  padding: 1rem;
+}
+
+.dashboard-quick-add h2 {
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.dashboard-quick-add-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+
+
+
 
 /* MEDIA QUERIES */
 @media (max-width: 768px) {

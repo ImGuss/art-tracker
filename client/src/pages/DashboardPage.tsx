@@ -12,6 +12,7 @@ import './DashboardPage.css'
 
 // components
 import DashboardCard from '../components/DashboardCard'
+import { ArrowRight, Plus } from 'lucide-react'
 
 const DashboardPage = () => {
   const { user } = useAuth()
@@ -25,6 +26,7 @@ const DashboardPage = () => {
   const artworksSeen = visits.reduce((acc, visit) => acc + visit.artwork_thumbnails.length, 0)
   const museumsVisited = new Set(visits.map(visit => visit.museum_id)).size
   const recentVisits = visits.length > 3 ? visits.slice(0, 3) : visits
+  const recentCollections = collections.length > 3 ? collections.slice(0, 3) : collections
 
   useEffect(() => {
     try {
@@ -62,6 +64,19 @@ const DashboardPage = () => {
     )
   })
 
+  const renderRecentCollections = recentCollections.map(collection => {
+    return (
+      <DashboardCard
+        key={collection.id}
+        id={collection.id}
+        title={collection.name}
+        date={collection.created_at}
+        artworkThumbnails={collection.artwork_thumbnails}
+        linkTo="/collections/"
+      />
+    )
+  })
+
   return (
     <section className="page">
       <div className="page-header">
@@ -91,13 +106,35 @@ const DashboardPage = () => {
 
       <div className="dashboard-two-column">
         <div className="dashboard-left-column">
-          <div className="dashboard-recent-visits">
+          <div className="dashboard-recent">
+            <div className="dashboard-recent-header">
+              <h2>Recent Visits</h2>
+              <Link className="gold-link" to="/visits">
+                View all visits <ArrowRight size="0.8rem" />
+              </Link>
+            </div>
             {renderRecentVisits}
+          </div>
+          <div className="dashboard-recent">
+            <div className="dashboard-recent-header">
+             <h2>Recent Collections</h2>
+             <Link className="gold-link" to="/collections">
+              View all collections <ArrowRight size="0.8rem" />
+            </Link>
+            </div>
+            {renderRecentCollections}
           </div>
         </div>
 
         <div className="dashboard-right-column">
-          test
+          <div className="dashboard-quick-add">
+            <h2>Quick Add</h2>
+            <div className="dashboard-quick-add-links">
+              <Link className="gold-btn" to="/museums"><Plus size="0.8rem" /> Log a Visit</Link>
+              <Link className="gold-outline-btn" to="/collections"><Plus size="0.8rem" /> New Collection</Link>
+              <Link className="gold-outline-btn" to="/artworks"><Plus size="0.8rem" /> Add Artwork</Link>
+            </div>
+          </div>
         </div>
       </div>
 
