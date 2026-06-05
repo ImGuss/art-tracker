@@ -1,7 +1,7 @@
 .layout {
   display: flex;
   flex-direction: column;
-  background-color: var(--card-bg);
+  background-color: var(--bg);
   border: 1.5px solid var(--border-color);
   border-radius: 2px;
   max-width: 1280px;
