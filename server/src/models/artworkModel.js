@@ -20,7 +20,7 @@ export async function getAllArtworks(limit, offset, searchTerm) {
       FROM artworks aw
       LEFT JOIN artists a ON aw.artist_id = a.id
       ${filter}
-      ORDER BY a.id, aw.id
+      ORDER BY aw.id DESC
       LIMIT $1 OFFSET $2
     `, valuesArray
   )
