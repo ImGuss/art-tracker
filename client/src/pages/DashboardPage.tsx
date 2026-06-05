@@ -2,16 +2,19 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { useAuth } from '../hooks/useAuth'
 
+import type { Artwork } from '../types/artwork'
 import type { Visit } from '../types/visit'
 import type { Collection } from '../types/collection'
 
 import { getUserVisits } from '../api/visitApi'
 import { getUserCollections } from '../api/collectionApi'
+import { getArtworks } from '../api/artworkApi'
 
 import './DashboardPage.css'
 
 // components
 import DashboardCard from '../components/DashboardCard'
+import ArtworkCard from '../components/ArtworkCard'
 import { ArrowRight, Plus } from 'lucide-react'
 
 const DashboardPage = () => {
@@ -20,6 +23,7 @@ const DashboardPage = () => {
   // state values
   const [visits, setVisits] = useState<Visit[]>([])
   const [collections, setCollections] = useState<Collection[]>([])
+  const [artworks, setArtworks] = useState<Artwork[]>([])
   const [error, setError] = useState<string | null>(null)
 
   // derived values
@@ -31,10 +35,11 @@ const DashboardPage = () => {
   useEffect(() => {
     try {
       (async () => {
-        const [visitData, collectionData] = await Promise.all([getUserVisits(), getUserCollections()])
+        const [visitData, collectionData, recentArtworks] = await Promise.all([getUserVisits(), getUserCollections(), getArtworks(3, 0)])
   
         setVisits(visitData)
         setCollections(collectionData)
+        setArtworks(recentArtworks)
       })()
     } catch (err) {
       setError('Failed to get user data') 
@@ -77,12 +82,23 @@ const DashboardPage = () => {
     )
   })
 
+  const renderRecentArtworks = artworks.map(artwork => {
+    return (
+      <ArtworkCard
+        key={artwork.id}
+        artwork={artwork}
+        showArtist={true}
+      />
+    )
+  })
+
   return (
     <section className="page">
-      <div className="page-header">
+      <div className="dashboard-page-header">
         <h2 className="page-title">
           Welcome back, <span className="gold-header">{user.username}</span>
         </h2>
+        <p>Track your art, museum visits and collections</p>
       </div>
 
       <div className="dashboard-user-stats">
@@ -134,6 +150,10 @@ const DashboardPage = () => {
               <Link className="gold-outline-btn" to="/collections"><Plus size="0.8rem" /> New Collection</Link>
               <Link className="gold-outline-btn" to="/artworks"><Plus size="0.8rem" /> Add Artwork</Link>
             </div>
+          </div>
+
+          <div className="dashboard-recent-artworks">
+            {renderRecentArtworks}
           </div>
         </div>
       </div>
