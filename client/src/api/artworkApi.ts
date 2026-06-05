@@ -2,7 +2,7 @@ import axiosInstance from './axiosInstance'
 
 import type { CreateArtworkData } from '../types/artwork'
 
-export async function getArtworks(limit: number, offset: number, q: string | undefined) {
+export async function getArtworks(limit: number, offset: number, q?: string) {
 
   const params = new URLSearchParams({
     limit: String(limit),
