@@ -20,6 +20,7 @@ const VisitDetailPage = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [searchResults, setSearchResults] = useState<Artwork[]>([])
   const [showDropDown, setShowDropDown] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   const numericId = id ? parseInt(id, 10) : NaN
@@ -43,6 +44,8 @@ const VisitDetailPage = () => {
           setSearchResults(res)
         } catch (err) {
           setError('Failed to find artworks')
+        } finally {
+          setIsLoading(false)
         }
       })()
     }, 300)
@@ -61,10 +64,16 @@ const VisitDetailPage = () => {
         setArtworks(res.artworks)
       } catch (err) {
         setError('Failed to fetch visit data')
+      } finally {
+        setIsLoading(false)
       }
     })()
     
   }, [])
+
+  if (isLoading) {
+    return <p className="loading">Loading...</p>
+  }
 
   if (!visit) {
     return <p className="error">Visit not found</p>
