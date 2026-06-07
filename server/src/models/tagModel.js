@@ -20,6 +20,8 @@ export async function getTagById(id, limit, offset) {
           aw.id AS artwork_id,
           aw.title,
           aw.image_url,
+          aw.year_created,
+          aw.medium,
           a.name AS artist_name
         FROM artwork_tags awt
         JOIN artworks aw ON awt.artwork_id = aw.id
@@ -36,6 +38,8 @@ export async function getTagById(id, limit, offset) {
             'id', pa.artwork_id,
             'title', pa.title,
             'image_url', pa.image_url,
+            'year_created', pa.year_created,
+            'medium', pa.medium,
             'artist_name', pa.artist_name
         )) FILTER (WHERE pa.artwork_id IS NOT NULL), '[]') AS artworks
       FROM tags t
