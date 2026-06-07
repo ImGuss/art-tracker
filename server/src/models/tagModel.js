@@ -30,10 +30,10 @@ export async function getTagById(id, limit, offset) {
       )
       SELECT
         t.id,
-        t.name AS tag_name,
+        t.name,
         COALESCE(JSON_AGG(
           json_build_object(
-            'artwork_id', pa.artwork_id,
+            'id', pa.artwork_id,
             'title', pa.title,
             'image_url', pa.image_url,
             'artist_name', pa.artist_name
