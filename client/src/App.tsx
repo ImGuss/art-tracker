@@ -11,6 +11,7 @@ import ArtworkDetailPage from './pages/ArtworkDetailPage'
 import ArtworksPage from './pages/ArtworksPage'
 import MuseumDetailPage from './pages/MuseumDetailPage'
 import MuseumsPage from './pages/MuseumsPage'
+import TagDetailPage from './pages/TagDetailPage'
 import TagsPage from './pages/TagsPage'
 import DashboardPage from './pages/DashboardPage'
 import CollectionDetailPage from './pages/CollectionDetailPage'
@@ -34,6 +35,7 @@ function App() {
         <Route path="/artworks" element={<ArtworksPage />} />
         <Route path="/museums/:id" element={<MuseumDetailPage />} />
         <Route path="/museums" element={<MuseumsPage />} />
+        <Route path="/tags/:id" element={<TagDetailPage />} />
         <Route path="/tags" element={<TagsPage />} />
         {/* PROTECTED ROUTES */}
         <Route path="/collections/:id" element={<ProtectedRoute><CollectionDetailPage /></ProtectedRoute>} />
