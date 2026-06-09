@@ -34,7 +34,11 @@ export async function getArtworkById(id) {
         aw.*,
         a.name AS artist_name,
         m.name AS museum_name,
-        ARRAY_REMOVE(ARRAY_AGG(t.name), NULL) AS tags
+        COALESCE(JSON_AGG(
+          json_build_object(
+            'name', t.name,
+            'id', t.id
+          )) FILTER (WHERE t.id IS NOT NULL), '[]') AS tags
       FROM artworks aw
       LEFT JOIN artwork_tags awt ON awt.artwork_id = aw.id
       LEFT JOIN tags t ON awt.tag_id = t.id
