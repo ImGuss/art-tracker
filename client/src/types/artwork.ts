@@ -1,3 +1,5 @@
+import type { Tag } from './tag'
+
 export interface Artwork {
   id: number;
   title: string;
@@ -11,7 +13,7 @@ export interface Artwork {
 export interface ArtworkDetail extends Artwork {
   museum_id: number | null;
   museum_name: string | null;
-  tags: string[] | null;
+  tags: Tag[];
   artic_id: number | null;
   met_id: number | null;
 }
