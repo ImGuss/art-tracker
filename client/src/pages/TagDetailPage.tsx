@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router'
 
-import type { Tag } from '../types/tag'
+import type { TagDetail } from '../types/tag'
 import type { Artwork } from '../types/artwork'
 
 import { getTagById } from '../api/tagApi'
@@ -14,11 +14,12 @@ import './TagDetailPage.css'
 const TagDetailPage = () => {
   const { id } = useParams<{ id: string }>()
 
-  const [tag, setTag] = useState<Tag | null>(null)
+  const [tag, setTag] = useState<TagDetail | null>(null)
   const [artworks, setArtworks] = useState<Artwork[]>([])
   const [offset, setOffset] = useState(0)
   const [hasMore, setHasMore] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
+  const [artworkLoading, setArtworkLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   const limit = 20
@@ -41,13 +42,14 @@ const TagDetailPage = () => {
         setError('Failed to fetch tag')
       } finally {
         setIsLoading(false)
+        setArtworkLoading(false)
       }
     })()
   }, [])
 
   const loadMore = async () => {
     try {
-      setIsLoading(true)
+      setArtworkLoading(true)
       const res = await getTagById(numericId, limit, offset)
 
       if (res.length < limit) {
@@ -59,7 +61,7 @@ const TagDetailPage = () => {
     } catch (err) {
       setError('Failed to load artworks')
     } finally {
-      setIsLoading(false)
+      setArtworkLoading(false)
     }
   }
 
@@ -76,6 +78,12 @@ const TagDetailPage = () => {
   if (error) {
     return (
       <p className="error">{error}</p>
+    )
+  }
+
+  if (isLoading) {
+    return (
+      <p className="loading">Loading...</p>
     )
   }
 
@@ -106,15 +114,15 @@ const TagDetailPage = () => {
       </div>
 
       {
-        isLoading ?
+        artworkLoading ?
         <div className="loading">Loading...</div> : null
       }
 
       {
         hasMore ?
         <button
-          className={`view-more-btn ${isLoading ? 'disabled-btn' : ''}`}
-          disabled={isLoading}
+          className={`view-more-btn ${artworkLoading ? 'disabled-btn' : ''}`}
+          disabled={artworkLoading}
           onClick={loadMore}
         >
           View More
