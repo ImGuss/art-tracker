@@ -62,7 +62,13 @@ const ArtworkDetailPage = () => {
 
   const renderTags = artwork.tags?.map(tag => {
     return (
-      <span key={tag} className="tag-pill">{tag}</span>
+      <Link
+        key={tag.id}
+        className="gold-outline-btn tag-pill"
+        to={`/tags/${tag.id}`}
+      >
+        {tag.name}
+      </Link>
     )
   })
 
