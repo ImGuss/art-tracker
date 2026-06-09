@@ -24,6 +24,7 @@ const CollectionDetailPage = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [searchResults, setSearchResults] = useState<Artwork[]>([])
   const [showDropDown, setShowDropDown] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   const numericId = id ? parseInt(id, 10) : NaN
@@ -59,6 +60,7 @@ const CollectionDetailPage = () => {
   useEffect(() => {
     (async () => {
       try {
+        setIsLoading(true)
         const res = await getCollectionById(numericId)
 
         setCollection(res)
@@ -66,9 +68,17 @@ const CollectionDetailPage = () => {
         setArtworks(res.artworks)
       } catch (err) {
         setError('Failed to fetch collection data')
+      } finally {
+        setIsLoading(false)
       }
     })()
   }, [])
+
+  if (isLoading) {
+    return (
+      <p className="loading">Loading...</p>
+    )
+  }
 
   if (!collection) {
     return <p className="error">Collection not found</p>
